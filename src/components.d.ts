@@ -18,36 +18,6 @@ declare global {
 
 
 import {
-  AppHome as AppHome
-} from './components/app-home/app-home';
-
-declare global {
-  interface HTMLAppHomeElement extends AppHome, HTMLStencilElement {
-  }
-  var HTMLAppHomeElement: {
-    prototype: HTMLAppHomeElement;
-    new (): HTMLAppHomeElement;
-  };
-  interface HTMLElementTagNameMap {
-    "app-home": HTMLAppHomeElement;
-  }
-  interface ElementTagNameMap {
-    "app-home": HTMLAppHomeElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      "app-home": JSXElements.AppHomeAttributes;
-    }
-  }
-  namespace JSXElements {
-    export interface AppHomeAttributes extends HTMLAttributes {
-      
-    }
-  }
-}
-
-
-import {
   AppProfile as AppProfile
 } from './components/app-profile/app-profile';
 
@@ -101,6 +71,36 @@ declare global {
   }
   namespace JSXElements {
     export interface BlogPageAttributes extends HTMLAttributes {
+      id?: string;
+    }
+  }
+}
+
+
+import {
+  HomePage as HomePage
+} from './components/home-page/home-page';
+
+declare global {
+  interface HTMLHomePageElement extends HomePage, HTMLStencilElement {
+  }
+  var HTMLHomePageElement: {
+    prototype: HTMLHomePageElement;
+    new (): HTMLHomePageElement;
+  };
+  interface HTMLElementTagNameMap {
+    "home-page": HTMLHomePageElement;
+  }
+  interface ElementTagNameMap {
+    "home-page": HTMLHomePageElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "home-page": JSXElements.HomePageAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface HomePageAttributes extends HTMLAttributes {
       
     }
   }
@@ -131,6 +131,36 @@ declare global {
   }
   namespace JSXElements {
     export interface MyAppAttributes extends HTMLAttributes {
+      
+    }
+  }
+}
+
+
+import {
+  TableOfContents as TableOfContents
+} from './components/table-of-contents/table-of-contents';
+
+declare global {
+  interface HTMLTableOfContentsElement extends TableOfContents, HTMLStencilElement {
+  }
+  var HTMLTableOfContentsElement: {
+    prototype: HTMLTableOfContentsElement;
+    new (): HTMLTableOfContentsElement;
+  };
+  interface HTMLElementTagNameMap {
+    "table-of-contents": HTMLTableOfContentsElement;
+  }
+  interface ElementTagNameMap {
+    "table-of-contents": HTMLTableOfContentsElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "table-of-contents": JSXElements.TableOfContentsAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface TableOfContentsAttributes extends HTMLAttributes {
       
     }
   }

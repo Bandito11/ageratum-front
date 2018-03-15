@@ -1,6 +1,6 @@
 {
-  "name": "Stencil Starter",
-  "short_name": "Stencil",
+  "name": "Mi Blog",
+  "short_name": "Mi Blog",
   "start_url": "/",
   "display": "standalone",
   "icons": [{

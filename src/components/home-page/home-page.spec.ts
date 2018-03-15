@@ -1,15 +1,15 @@
+import { HomePage } from './home-page';
 import { render } from '@stencil/core/testing';
-import { AppHome } from './app-home';
 
 describe('app', () => {
   it('should build', () => {
-    expect(new AppHome()).toBeTruthy();
+    expect(new HomePage()).toBeTruthy();
   });
 
   describe('rendering', () => {
     beforeEach(async () => {
       await render({
-        components: [AppHome],
+        components: [HomePage],
         html: '<app-home></app-home>'
       });
     });

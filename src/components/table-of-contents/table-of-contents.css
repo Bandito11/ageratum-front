@@ -1,0 +1,8 @@
+#table-of-contents{
+    
+}
+@media (min-width: 1024px) {
+    #table-of-contents{
+        padding: 0 20% 0 20%;
+    }
+  }

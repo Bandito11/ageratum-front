@@ -1,40 +1,63 @@
-import {Component} from '@stencil/core';
-import {blogPage, getImageSrc, IBlogContent} from './../../mock/mock-blog-data';
+import {Component, Prop, State} from '@stencil/core';
+import {getBlogPageFromDB, IBlogContent, IBlogData, getImageSrcFromStorage} from './../../mock/mock-blog-data';
 
 @Component({tag: 'blog-page', styleUrl: 'blog-page.css'})
 export class BlogPage {
+
+  @Prop() id: string;
+  @State() blogPage: IBlogData;
+
+  componentWillLoad(){
+    this.blogPage = {
+      title:'',
+      id: '',
+      content: [],
+      author:'',
+      email: '',
+      date: '',
+      headerAlt:'',
+      headerSrc: ''
+    }
+
+    getBlogPageFromDB(this.id)
+    .then(blogPage =>{
+      this.blogPage = {...this.blogPage, ...blogPage};
+    })
+    .catch();
+  }
+
   render() {
     return (
       <div id="blog-page" class='container'>
         <div class="blog-img">
           <img
-            src={getImageSrc('x1235')}
-            class=" img-responsive"
-            alt="Una computadora de un diseñador de páginas de internet"/>
+            src={getImageSrcFromStorage(this.blogPage.headerSrc)}
+            class="img-responsive"
+            alt={this.blogPage.headerAlt}/>
         </div>
         <h3 id="title">
-          {blogPage.title}
+          {this.blogPage.title}
         </h3>
         <p>
           Escrito por:
         </p>
         <h5>
-          {blogPage.author}
+          {this.blogPage.author}
         </h5>
         <div class="divider"></div>
         <div id="inline-images">
-          {blogPage
+          {this.blogPage
             .content
             .map(content => {
               if (content.type == 'p') {
-                return <p>{content.text}</p>
+                return this.createParagraphTag(content);
               } else {
-                return this.image(content)
+                return this.createImageTag(content)
               }
             })}
         </div>
         <p id="date">
-          Escrito en {blogPage.date}.
+          Escrito en {this.blogPage.date}.
         </p>
         {/* <stencil-route-link url='/profile/stencil'>
             <button>
@@ -45,14 +68,18 @@ export class BlogPage {
     );
   }
 
-  image(content: Partial<IBlogContent>) {
+  createParagraphTag(content : Partial < IBlogContent >){
+return <p>{content.text}</p>;
+  }
+
+  createImageTag(content : Partial < IBlogContent >) {
     return (
+      <figure class="figure">
         <a href={content.link}>
-          <img
-            src={getImageSrc(content.img)}
-            class="img-responsive"
-            alt={content.alt}/>
+          <img src={getImageSrcFromStorage(content.img)} class="img-responsive" alt={content.alt}/>
         </a>
+        <figcaption class="figure-caption text-center">{content.text}</figcaption>
+      </figure>
     );
   };
 }
