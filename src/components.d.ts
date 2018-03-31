@@ -6,6 +6,7 @@
 
 import {
   MatchResults,
+  RouterHistory,
 } from '@stencil/router';
 
 declare global {
@@ -15,36 +16,6 @@ declare global {
   }
 }
 
-
-
-import {
-  AppProfile as AppProfile
-} from './components/app-profile/app-profile';
-
-declare global {
-  interface HTMLAppProfileElement extends AppProfile, HTMLStencilElement {
-  }
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
-  };
-  interface HTMLElementTagNameMap {
-    "app-profile": HTMLAppProfileElement;
-  }
-  interface ElementTagNameMap {
-    "app-profile": HTMLAppProfileElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      "app-profile": JSXElements.AppProfileAttributes;
-    }
-  }
-  namespace JSXElements {
-    export interface AppProfileAttributes extends HTMLAttributes {
-      match?: MatchResults;
-    }
-  }
-}
 
 
 import {
@@ -72,6 +43,7 @@ declare global {
   namespace JSXElements {
     export interface BlogPageAttributes extends HTMLAttributes {
       id?: string;
+      match?: MatchResults;
     }
   }
 }
@@ -161,7 +133,7 @@ declare global {
   }
   namespace JSXElements {
     export interface TableOfContentsAttributes extends HTMLAttributes {
-      
+      history?: RouterHistory;
     }
   }
 }

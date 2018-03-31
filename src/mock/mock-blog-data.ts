@@ -1,26 +1,26 @@
-export interface IBlogContent{  
-  alt: string; 
-  img:string; 
-  text: string;   
-  type: string;   
-  link: string; 
+export interface IBlogContent {
+  alt : string;
+  img : string;
+  text : string;
+  type : string;
+  link : string;
 }
-export interface IBlogData {   
-  id: string;   
-  title: string; 
-  content: Partial<IBlogContent>[]; 
-  author: string;   
-  email: string; 
-  date: string; 
-  headerAlt:string;
-  headerSrc:string;
+export interface IBlogData {
+  id : string;
+  title : string;
+  content : Partial < IBlogContent > [];
+  author : string;
+  email : string;
+  date : string;
+  headerAlt : string;
+  headerSrc : string;
 }
 
-const blogPage: IBlogData = {
+const blogPage : IBlogData = {
   id: 'x1257',
   author: 'Esteban Morales',
-  headerSrc:'x1235',
-  headerAlt:'Una computadora de un diseñador de páginas de internet',
+  headerSrc: 'x1235',
+  headerAlt: 'Una computadora de un diseñador de páginas de internet',
   email: 'esteban.a.morales.morales@gmail.com',
   date: '12 de Marzo de 2018',
   title: '¿Si soy un desarrollador para web, como puedo reutilizar mis talentos para el mu' +
@@ -37,22 +37,22 @@ const blogPage: IBlogData = {
         `,
       type: 'p'
     }, {
-      alt:'Logo de Angular',
+      alt: 'Logo de Angular',
       link: 'https://angular.io',
       img: 'x1434',
       type: 'img',
-      text:'El framework base en donde Ionic fue diseñado.'
+      text: 'El framework base en donde Ionic fue diseñado.'
     }, {
       text: `
         Un grupo de desarrolladores web se tomaron a la labor de crear un framework que emulara las interfaces de iOS, y después Android, casi a su perfección (en muchas ocasiones funcionan mejor). Al lanzar este producto se ve la diferencia en apps hecho en Ionic y los que simplemente están hechos en Cordova.  Aunque no necesariamente su rendimiento era más alto pero desde la perspectiva del usuario no había diferencia. Estos estaban hechos utilizando los componentes Web en mente, ya que este framework utilizaba  Angular  para la lógica. O sea que puedes utilizar  cada  componente de Ionic como le plazca y utilizar  HTML cuando sea necesario. Como utiliza Angular se pueden utilizar  los componentes o directivas para reutilizar  en otros partes del app pero entrar ahí seria entrar a un tema más técnico. Ellos planearon utilizar Cordova para que su plataforma se pueda utilizar no solamente en la web pero en los SO de Apple y Google. De esa manera puedes crear un web app, iOS y Android con un código y tener un app con una interface con un rendimiento bueno.
         `,
       type: 'p'
     }, {
-      alt:'Logo de Ionic Framework',
+      alt: 'Logo de Ionic Framework',
       link: 'http://ionicframework.com/',
       img: 'x2234',
       type: 'img',
-      text:'El logo del framework de Ionic.'
+      text: 'El logo del framework de Ionic.'
     }, {
       text: `
         Ahora en el 2017, Ionic decidió apartarse de Angular e irse framework agnóstico, o sea que su plataforma no dependa de ninguna librería. Van a seguir dándole apoyo a Angular pero ahora puedes utilizar su plataforma en otro framework como React o Vue. Para poder lograr ello están utilizando los componentes Web, que no es más nada que Custom Elements de HTML5. Esto es como crear un HTML, CSS y JS que se pueda reutlizar en cualquier web app o página. Angular (para no ser confundido con Angular JS) inclusive le dio soporte a esta nueva paradigma. Si haz utilizado React, Vue o Angular ya has utilizado componentes cuando programas, la diferencia más grande es la sintaxis y que un componente web lo puedes utilizar en donde sea, pero un componente en React no lo puedes utilizar en Vue.
@@ -79,25 +79,34 @@ const blogPage: IBlogData = {
 
 const blogPagePics = {
   x1235: {
-    pic: 'assets/todelete/SoundStudio.jpg'
+    pic: '../assets/todelete/SoundStudio.jpg'
   },
   x2234: {
-    pic: 'assets/todelete/ionic-logo-blog.png'
+    pic: '../assets/todelete/ionic-logo-blog.png'
   },
   x1434: {
-    pic: 'assets/todelete/angular2.png'
+    pic: '../assets/todelete/angular2.png'
   }
 }
 
-export function getBlogPageFromDB(id: string): Promise<IBlogData>{
-  return new Promise((resolve, reject)=> {
+const blogPages = [
+  blogPage,
+  blogPage,
+  blogPage,
+  blogPage,
+  blogPage,
+  blogPage
+];
+
+export function getBlogPageFromDB(id : string) : Promise < IBlogData > {
+  return new Promise((resolve, reject) => {
     id;
     resolve(blogPage);
     reject();
   });
 }
 
-export function getImageSrcFromStorage(link: string) : string {
+export function getImageSrcFromStorage(link : string) : string {
   try {
     return blogPagePics[link].pic
   } catch (error) {
@@ -105,9 +114,9 @@ export function getImageSrcFromStorage(link: string) : string {
   }
 }
 
-export function getListOfArticles(): Promise<Partial<IBlogData>[]>{
-return new Promise((resolve, reject)=>{
-  resolve([blogPage, blogPage, blogPage, blogPage, blogPage, blogPage]);
-  reject();
-})
+export function getListOfArticles() : Promise < Partial < IBlogData > [] > {
+  return new Promise((resolve, reject) => {
+    resolve(blogPages);
+    reject();
+  })
 }

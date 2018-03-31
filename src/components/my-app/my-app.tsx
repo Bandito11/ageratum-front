@@ -7,9 +7,11 @@ export class MyApp {
     return (
       <div>
         <header class="navbar">
+        <stencil-route-link url="/.">
           <section class="navbar-section">
             <a href="#" class="navbar-brand mr-2">Mi Blog</a>
           </section>
+          </stencil-route-link>
           <section class="navbar-section">
             <a href="https://github.com/Bandito11" class="btn btn-link">
               <i class="ionicons ion-social-github"></i>
@@ -28,9 +30,8 @@ export class MyApp {
         <main>
           <stencil-router>
             <stencil-route url='/' component='home-page' exact={true}></stencil-route>
-
-            <stencil-route url='/profile/:name' component='app-profile'></stencil-route>
-
+            <stencil-route url='/index' component='table-of-contents'></stencil-route>
+            <stencil-route url='/blog/:id' component='blog-page'></stencil-route>
           </stencil-router>
         </main>
       </div>

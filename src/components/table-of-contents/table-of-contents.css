@@ -1,8 +1,4 @@
-#table-of-contents{
-    
+#table-of-contents a{
+    text-decoration: none;
+    color:#000;
 }
-/* @media (min-width: 1024px) {
-    #table-of-contents{
-        padding: 0 20% 0 20%;
-    }
-  } */
