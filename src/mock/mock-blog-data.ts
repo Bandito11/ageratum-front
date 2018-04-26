@@ -5,6 +5,7 @@ export interface IBlogContent {
   type : string;
   link : string;
 }
+
 export interface IBlogData {
   id : string;
   title : string;
@@ -16,7 +17,7 @@ export interface IBlogData {
   headerSrc : string;
 }
 
-const blogPage : IBlogData = {
+const blogPageTest : IBlogData = {
   id: 'x1257',
   author: 'Esteban Morales',
   headerSrc: 'x1235',
@@ -90,18 +91,18 @@ const blogPagePics = {
 }
 
 const blogPages = [
-  blogPage,
-  blogPage,
-  blogPage,
-  blogPage,
-  blogPage,
-  blogPage
+  blogPageTest,
+  blogPageTest,
+  blogPageTest,
+  blogPageTest,
+  blogPageTest,
+  blogPageTest
 ];
 
 export function getBlogPageFromDB(id : string) : Promise < IBlogData > {
   return new Promise((resolve, reject) => {
     id;
-    resolve(blogPage);
+    resolve(blogPageTest);
     reject();
   });
 }

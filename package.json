@@ -1,7 +1,7 @@
 {
   "name": "@stencil/starter",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Stencil App Starter",
   "files": [
     "dist/"
@@ -15,7 +15,7 @@
     "test.watch": "jest --watch --no-cache"
   },
   "dependencies": {
-    "@stencil/core": "^0.6.1",
+    "@stencil/core": "^0.7.25",
     "@stencil/router": "latest"
   },
   "devDependencies": {

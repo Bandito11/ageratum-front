@@ -7,9 +7,9 @@ export class MyApp {
     return (
       <div>
         <header class="navbar">
-        <stencil-route-link url="/.">
+        <stencil-route-link url="/">
           <section class="navbar-section">
-            <a href="#" class="navbar-brand mr-2">Mi Blog</a>
+            <p class="navbar-brand mr-2">mi icono</p>
           </section>
           </stencil-route-link>
           <section class="navbar-section">
@@ -29,8 +29,8 @@ export class MyApp {
 
         <main>
           <stencil-router>
-            <stencil-route url='/' component='home-page' exact={true}></stencil-route>
-            <stencil-route url='/index' component='table-of-contents'></stencil-route>
+            {/* <stencil-route url='/' component='home-page' exact={true}></stencil-route> */}
+            <stencil-route url='/' exact={true} component='table-of-contents'></stencil-route>
             <stencil-route url='/blog/:id' component='blog-page'></stencil-route>
           </stencil-router>
         </main>

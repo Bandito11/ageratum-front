@@ -5,7 +5,6 @@ import {getBlogPageFromDB, IBlogContent, IBlogData, getImageSrcFromStorage} from
 @Component({tag: 'blog-page', styleUrl: 'blog-page.css'})
 export class BlogPage {
   @Prop()match : MatchResults;
-  @Prop()id : string;
   @State()blogPage : IBlogData;
 
   componentWillLoad() {
@@ -40,15 +39,12 @@ export class BlogPage {
                 class="img-responsive"
                 alt={this.blogPage.headerAlt}/>
             </div>
-            <h3 id="title">
+            <h2 id="title">
               {this.blogPage.title}
-            </h3>
+            </h2>
             <p>
-              Escrito por:
+              Escrito por: {this.blogPage.author}
             </p>
-            <h5>
-              {this.blogPage.author}
-            </h5>
             <div class="divider"></div>
             <div id="inline-images">
               {this

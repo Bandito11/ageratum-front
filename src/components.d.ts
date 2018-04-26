@@ -4,136 +4,126 @@
  * and imports for stencil collections that might be configured in your stencil.config.js file
  */
 
+import '@stencil/core';
+
+declare global {
+  namespace JSX {
+    interface Element {}
+    export interface IntrinsicElements {}
+  }
+  namespace JSXElements {}
+
+  interface HTMLStencilElement extends HTMLElement {
+    componentOnReady(): Promise<this>;
+    componentOnReady(done: (ele?: this) => void): void;
+
+    forceUpdate(): void;
+  }
+
+  interface HTMLAttributes {}
+}
+
+import '@stencil/router';
+
 import {
   MatchResults,
   RouterHistory,
 } from '@stencil/router';
 
 declare global {
-  interface HTMLStencilElement extends HTMLElement {
-    componentOnReady(): Promise<this>;
-    componentOnReady(done: (ele?: this) => void): void;
+
+  namespace StencilComponents {
+    interface BlogPage {
+      'match': MatchResults;
+    }
   }
-}
 
+  interface HTMLBlogPageElement extends StencilComponents.BlogPage, HTMLStencilElement {}
 
-
-import {
-  BlogPage as BlogPage
-} from './components/blog-page/blog-page';
-
-declare global {
-  interface HTMLBlogPageElement extends BlogPage, HTMLStencilElement {
-  }
   var HTMLBlogPageElement: {
     prototype: HTMLBlogPageElement;
     new (): HTMLBlogPageElement;
   };
   interface HTMLElementTagNameMap {
-    "blog-page": HTMLBlogPageElement;
+    'blog-page': HTMLBlogPageElement;
   }
   interface ElementTagNameMap {
-    "blog-page": HTMLBlogPageElement;
+    'blog-page': HTMLBlogPageElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "blog-page": JSXElements.BlogPageAttributes;
+      'blog-page': JSXElements.BlogPageAttributes;
     }
   }
   namespace JSXElements {
     export interface BlogPageAttributes extends HTMLAttributes {
-      id?: string;
-      match?: MatchResults;
+      'match'?: MatchResults;
     }
   }
 }
 
 
-import {
-  HomePage as HomePage
-} from './components/home-page/home-page';
-
 declare global {
-  interface HTMLHomePageElement extends HomePage, HTMLStencilElement {
-  }
-  var HTMLHomePageElement: {
-    prototype: HTMLHomePageElement;
-    new (): HTMLHomePageElement;
-  };
-  interface HTMLElementTagNameMap {
-    "home-page": HTMLHomePageElement;
-  }
-  interface ElementTagNameMap {
-    "home-page": HTMLHomePageElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      "home-page": JSXElements.HomePageAttributes;
+
+  namespace StencilComponents {
+    interface MyApp {
+
     }
   }
-  namespace JSXElements {
-    export interface HomePageAttributes extends HTMLAttributes {
-      
-    }
-  }
-}
 
+  interface HTMLMyAppElement extends StencilComponents.MyApp, HTMLStencilElement {}
 
-import {
-  MyApp as MyApp
-} from './components/my-app/my-app';
-
-declare global {
-  interface HTMLMyAppElement extends MyApp, HTMLStencilElement {
-  }
   var HTMLMyAppElement: {
     prototype: HTMLMyAppElement;
     new (): HTMLMyAppElement;
   };
   interface HTMLElementTagNameMap {
-    "my-app": HTMLMyAppElement;
+    'my-app': HTMLMyAppElement;
   }
   interface ElementTagNameMap {
-    "my-app": HTMLMyAppElement;
+    'my-app': HTMLMyAppElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "my-app": JSXElements.MyAppAttributes;
+      'my-app': JSXElements.MyAppAttributes;
     }
   }
   namespace JSXElements {
     export interface MyAppAttributes extends HTMLAttributes {
-      
+
     }
   }
 }
 
 
-import {
-  TableOfContents as TableOfContents
-} from './components/table-of-contents/table-of-contents';
-
 declare global {
-  interface HTMLTableOfContentsElement extends TableOfContents, HTMLStencilElement {
+
+  namespace StencilComponents {
+    interface TableOfContents {
+      'history': RouterHistory;
+    }
   }
+
+  interface HTMLTableOfContentsElement extends StencilComponents.TableOfContents, HTMLStencilElement {}
+
   var HTMLTableOfContentsElement: {
     prototype: HTMLTableOfContentsElement;
     new (): HTMLTableOfContentsElement;
   };
   interface HTMLElementTagNameMap {
-    "table-of-contents": HTMLTableOfContentsElement;
+    'table-of-contents': HTMLTableOfContentsElement;
   }
   interface ElementTagNameMap {
-    "table-of-contents": HTMLTableOfContentsElement;
+    'table-of-contents': HTMLTableOfContentsElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "table-of-contents": JSXElements.TableOfContentsAttributes;
+      'table-of-contents': JSXElements.TableOfContentsAttributes;
     }
   }
   namespace JSXElements {
     export interface TableOfContentsAttributes extends HTMLAttributes {
-      history?: RouterHistory;
+      'history'?: RouterHistory;
     }
   }
 }
