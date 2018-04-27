@@ -1,11 +1,11 @@
-import {Component, Prop, State} from '@stencil/core';
-import {MatchResults} from '@stencil/router';
-import {getBlogPageFromDB, IBlogContent, IBlogData, getImageSrcFromStorage} from './../../mock/mock-blog-data';
+import { Component, Prop, State } from '@stencil/core';
+import { MatchResults } from '@stencil/router';
+import { IBlogPage, IBlogContent } from '../../common';
 
-@Component({tag: 'blog-page', styleUrl: 'blog-page.css'})
+@Component({ tag: 'blog-page', styleUrl: 'blog-page.css' })
 export class BlogPage {
-  @Prop()match : MatchResults;
-  @State()blogPage : IBlogData;
+  @Prop() match: MatchResults;
+  @State() blogPage: IBlogPage;
 
   componentWillLoad() {
     this.blogPage = {
@@ -18,14 +18,41 @@ export class BlogPage {
       headerAlt: '',
       headerSrc: ''
     }
-
-    getBlogPageFromDB(this.match.params.id).then(blogPage => {
-      this.blogPage = {
-        ...this.blogPage,
-        ...blogPage
-      };
-    }).catch();
+    this.getBlogPageFromDB(this.match.params.id)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+      })
+      .then(agerantum => {
+        if(agerantum.success){
+          this.blogPage = agerantum.data;
+        }
+      })
   }
+
+  getBlogPageFromDB(id) {
+    const url = `http://localhost:5000/blogpage/id/${id}`;
+    return fetch(url)
+  }
+
+  createParagraphTag(content: Partial<IBlogContent>) {
+    return <p>{content.text}</p>;
+  }
+
+  createImageTag(content: Partial<IBlogContent>) {
+    return (
+      <figure class="figure">
+        <a href={content.link}>
+          <img
+            src={content.img}
+            class="img-responsive"
+            alt={content.alt} />
+        </a>
+        <figcaption class="figure-caption text-center">{content.text}</figcaption>
+      </figure>
+    );
+  };
 
   render() {
     return (
@@ -35,9 +62,9 @@ export class BlogPage {
           <div class="columns col-8">
             <div class="blog-img">
               <img
-                src={getImageSrcFromStorage(this.blogPage.headerSrc)}
+                src={this.blogPage.headerSrc}
                 class="img-responsive"
-                alt={this.blogPage.headerAlt}/>
+                alt={this.blogPage.headerAlt} />
             </div>
             <h2 id="title">
               {this.blogPage.title}
@@ -68,21 +95,4 @@ export class BlogPage {
     );
   }
 
-  createParagraphTag(content : Partial < IBlogContent >) {
-    return <p>{content.text}</p>;
-  }
-
-  createImageTag(content : Partial < IBlogContent >) {
-    return (
-      <figure class="figure">
-        <a href={content.link}>
-          <img
-            src={getImageSrcFromStorage(content.img)}
-            class="img-responsive"
-            alt={content.alt}/>
-        </a>
-        <figcaption class="figure-caption text-center">{content.text}</figcaption>
-      </figure>
-    );
-  };
 }

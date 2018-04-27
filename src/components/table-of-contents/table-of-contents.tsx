@@ -1,20 +1,28 @@
 import { Component, State, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import { getListOfArticles, IBlogData, getImageSrcFromStorage } from '../../mock/mock-blog-data';
+import { ITableOfContents } from '../../common';
 
 @Component({ tag: 'table-of-contents', styleUrl: 'table-of-contents.css' })
 export class TableOfContents {
   @Prop() history: RouterHistory;
-  @State() listOfArticles: Partial<IBlogData>[];
+  @State() listOfArticles: ITableOfContents[];
 
   componentWillLoad() {
     this.listOfArticles = [];
-    getListOfArticles().then(list => {
-      this.listOfArticles = [
-        ...this.listOfArticles,
-        ...list
-      ];
-    }).catch();
+    this.getListOfArticles().then(response => {
+      if (response.ok == true) {
+        return response.json();
+      }
+    }).then(agerantum => {
+      if (agerantum.success) {
+        this.listOfArticles = [...this.listOfArticles, ...agerantum.data]
+      }
+    });
+  }
+
+  getListOfArticles() {
+    const url = 'http://localhost:5000/bloglist';
+    return fetch(url);
   }
 
   render() {
@@ -39,7 +47,7 @@ export class TableOfContents {
                       </div>
                       <div class="card-image">
                         <img
-                          src={getImageSrcFromStorage(article.headerSrc)}
+                          src={article.headerSrc}
                           class="img-responsive"
                           alt={article.headerAlt} />
                       </div>
