@@ -1,55 +1,90 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
-import { IBlogPage, IBlogContent } from '../../common';
 
 @Component({ tag: 'blog-page', styleUrl: 'blog-page.css' })
 export class BlogPage {
   @Prop() match: MatchResults;
-  @State() blogPage: IBlogPage;
+  @State() blogPage: { date, headerAlt, headerSrc, title, id, contents };
 
   componentWillLoad() {
     this.blogPage = {
-      title: '',
-      id: '',
-      content: [],
-      author: '',
-      email: '',
-      date: '',
-      headerAlt: '',
-      headerSrc: ''
-    }
-    this.getBlogPageFromDB(this.match.params.id)
+      title: this.getTitle(this.match.params.title),
+      id: this.match.params.blogid,
+      contents: [],
+      date: this.match.params.date,
+      headerAlt: this.match.params.headeralt,
+      headerSrc: this.getHeaderSrc(this.match.params.headersrc)
+    };
+    this.getBlogPageFromDB(this.blogPage.id)
       .then((response) => {
         if (response.ok) {
           return response.json()
         }
       })
-      .then(agerantum => {
-        if(agerantum.success){
-          this.blogPage = agerantum.data;
+      .then(ageratum => {
+        if (ageratum.success) {
+          this.blogPage = {
+            ...this.blogPage,
+            contents: [...this.blogPage.contents, ...ageratum.data]
+          };
         }
-      })
+      });
   }
 
-  getBlogPageFromDB(id) {
-    const url = `http://localhost:5000/blogpage/id/${id}`;
+  getHeaderSrc(headerSrc: string) {
+    let src = headerSrc.split('').map(value => {
+      if (value == '}') {
+        return '/';
+      }
+      if (value == '{') {
+        return '?';
+      }
+      return value;
+    }).join('');
+    return src;
+  }
+
+  getTitle(title: string) {
+    let src = title.split('').map(value => {
+      if (value == '}') {
+        return '/';
+      }
+      if (value == '{') {
+        return '?';
+      }
+      return value;
+    }).join('');
+    return src;
+  }
+
+  getBlogPageFromDB(id: string) {
+    const url = `/blogpage/id/${id}`;
     return fetch(url)
   }
 
-  createParagraphTag(content: Partial<IBlogContent>) {
-    return <p>{content.text}</p>;
+  createParagraphTag(opts: string) {
+    let content = opts.split('').map(value => {
+      if (value == '}') {
+        return '/';
+      }
+      if (value == '{') {
+        return '?';
+      }
+      return value;
+    }).join('');
+    return <p>{content}</p>;
   }
 
-  createImageTag(content: Partial<IBlogContent>) {
+  createImageTag(opts: { link: string , src: string, alt: string, content: string }) {
     return (
       <figure class="figure">
-        <a href={content.link}>
+        <a href={opts.link}>
           <img
-            src={content.img}
+            src={opts.src}
             class="img-responsive"
-            alt={content.alt} />
+            alt={opts.alt} />
         </a>
-        <figcaption class="figure-caption text-center">{content.text}</figcaption>
+        <figcaption class="figure-caption text-center">{opts.content}</figcaption>
       </figure>
     );
   };
@@ -70,20 +105,18 @@ export class BlogPage {
               {this.blogPage.title}
             </h2>
             <p>
-              Escrito por: {this.blogPage.author}
+              Escrito por: Esteban A. Morales
             </p>
             <div class="divider"></div>
-            <div id="inline-images">
-              {this
-                .blogPage
-                .content
-                .map(content => {
-                  if (content.type == 'p') {
-                    return this.createParagraphTag(content);
-                  } else {
-                    return this.createImageTag(content)
-                  }
-                })}
+            <div>
+              {this.blogPage.contents.map(content => {
+                if (content.type == 'p') {
+                  return this.createParagraphTag(content.content);
+                } else {
+                  return this.createImageTag(content)
+                }
+              })
+              }
             </div>
             <p id="date">
               Escrito en {this.blogPage.date}.
@@ -94,5 +127,4 @@ export class BlogPage {
       </div>
     );
   }
-
 }
