@@ -78,11 +78,8 @@ export class BlogPage {
   createImageTag(opts: { link: string, src: string, alt: string, content: string }) {
     return (
       <figure class="figure">
-        <a href={opts.link}>
-          <img
-            src={opts.src}
-            class="img-responsive"
-            alt={opts.alt} />
+        <a href={opts.link} target="_blank">
+          <img src={opts.src} class="img-responsive" alt={opts.alt} />
         </a>
         <figcaption class="figure-caption text-center">{opts.content}</figcaption>
       </figure>
@@ -96,10 +93,7 @@ export class BlogPage {
           <div class="columns col-2"></div>
           <div class="columns col-8">
             <div class="blog-img">
-              <img
-                src={this.blogPage.headerSrc}
-                class="img-responsive"
-                alt={this.blogPage.headerAlt} />
+              <img src={this.blogPage.headerSrc} class="img-responsive" alt={this.blogPage.headerAlt} />
             </div>
             <h2 id="title">
               {this.blogPage.title}
