@@ -75,7 +75,7 @@ export class BlogPage {
     return <p>{content}</p>;
   }
 
-  createImageTag(opts: { link: string , src: string, alt: string, content: string }) {
+  createImageTag(opts: { link: string, src: string, alt: string, content: string }) {
     return (
       <figure class="figure">
         <a href={opts.link}>
