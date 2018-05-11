@@ -1,7 +1,10 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
 
-@Component({ tag: 'blog-page', styleUrl: 'blog-page.css' })
+@Component({
+  tag: 'blog-page',
+  styleUrl: 'blog-page.css'
+})
 export class BlogPage {
   @Prop() match: MatchResults;
   @State() blogPage: { date, headerAlt, headerSrc, title, id, contents };
@@ -90,11 +93,9 @@ export class BlogPage {
     return (
       <div id="blog-page">
         <div class="columns">
-          <div class="columns col-2"></div>
-          <div class="columns col-8">
-            <div class="blog-img">
+          <div class="column col-2"></div>
+          <div class="column col-8">
               <img src={this.blogPage.headerSrc} class="img-responsive" alt={this.blogPage.headerAlt} />
-            </div>
             <h2 id="title">
               {this.blogPage.title}
             </h2>
@@ -116,7 +117,7 @@ export class BlogPage {
               Escrito en {this.blogPage.date}.
             </p>
           </div>
-          <div class="columns col-2"></div>
+          <div class="column col-2"></div>
         </div>
       </div>
     );

@@ -29,6 +29,7 @@ export class MyApp {
           <stencil-router>
             <stencil-route url='/' exact={true} component='table-of-contents'></stencil-route>
             <stencil-route url='/blogid/:blogid/title/:title/headersrc/:headersrc/headeralt/:headeralt/date/:date' component='blog-page'></stencil-route>
+            <stencil-route url='/entry'  component='blog-entry'></stencil-route>
           </stencil-router>
         </main>
       </div>

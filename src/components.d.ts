@@ -33,6 +33,39 @@ import {
 declare global {
 
   namespace StencilComponents {
+    interface BlogEntry {
+
+    }
+  }
+
+  interface HTMLBlogEntryElement extends StencilComponents.BlogEntry, HTMLStencilElement {}
+
+  var HTMLBlogEntryElement: {
+    prototype: HTMLBlogEntryElement;
+    new (): HTMLBlogEntryElement;
+  };
+  interface HTMLElementTagNameMap {
+    'blog-entry': HTMLBlogEntryElement;
+  }
+  interface ElementTagNameMap {
+    'blog-entry': HTMLBlogEntryElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'blog-entry': JSXElements.BlogEntryAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BlogEntryAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BlogPage {
       'match': MatchResults;
     }

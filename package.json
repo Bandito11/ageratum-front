@@ -1,7 +1,7 @@
 {
   "name": "@stencil/starter",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Stencil App Starter",
   "files": [
     "dist/"
