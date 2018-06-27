@@ -65,7 +65,6 @@ export class BlogEntry {
     }
   }
 
-  //TODO: Add [] in render to I can just add getHTML() directly without using a function in render.
   render() {
     return [
       <div>
