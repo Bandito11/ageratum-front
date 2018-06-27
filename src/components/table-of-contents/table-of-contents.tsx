@@ -59,7 +59,7 @@ export class TableOfContents {
             <div class="columns">
               {this.listOfArticles.map(article =>
                 <div class="column col-xs-12 col-md-6 col-4">
-                  <stencil-route-link url={`/blogid/${article.blogid}/title/${this.getTitle(article.title)}/headersrc/${this.getHeaderSrc(article.headersrc)}/headeralt/${article.headeralt}/date/${article.date}`}>
+                  <stencil-route-link url={`/blogid/${article.blogid}`}>
                     <div class="card">
                       <div class="card-image">
                         <img
@@ -68,7 +68,7 @@ export class TableOfContents {
                           alt={`imagen de ${article.headeralt}`} />
                       </div>
                       <div class="card-header">
-                        <div class="card-title h5">
+                        <div class="card-title">
                           {article.title}
                         </div>
                         <div class="card-subtitle text-gray">
@@ -76,7 +76,7 @@ export class TableOfContents {
                         </div>
                       </div>
                       <div class="card-body">
-                        {article.content.slice(0, 200)}...
+                        {article.content}
                   </div>
                     </div>
                     <br />
