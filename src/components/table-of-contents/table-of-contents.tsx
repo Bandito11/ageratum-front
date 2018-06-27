@@ -38,19 +38,18 @@ export class TableOfContents {
   }
 
   createTitleURL(title: string) {
-    let titleURL = title
-      .trim().split("").map(value => {
-        if (value == " ") {
-          return "-";
-        }
-        if (value == "/") {
-          return "}";
-        }
-        if (value == "?") {
-          return "{";
-        }
-        return value;
-      }).join("");
+    let titleURL = title.trim().split("").map(value => {
+      if (value == " ") {
+        return "-";
+      }
+      if (value == "/") {
+        return "}";
+      }
+      if (value == "?") {
+        return "{";
+      }
+      return value;
+    }).join("");
     return titleURL;
   }
   render() {
