@@ -5,18 +5,28 @@ import { MatchResults } from '@stencil/router';
   tag: 'blog-page',
   styleUrl: 'blog-page.css'
 })
+
+export interface IBlog { 
+  date: string, 
+  headerAlt: string, 
+  headerSrc: string, 
+  title: string, 
+  id: string, 
+  contents: string 
+};
+
 export class BlogPage {
   @Prop() match: MatchResults;
-  @State() blogPage: { date, headerAlt, headerSrc, title, id, contents };
+  @State() blogPage: IBlog;
 
   componentWillLoad() {
     this.blogPage = {
       title: this.getTitle(this.match.params.title),
       id: this.match.params.blogid,
       contents: [],
-      date: this.match.params.date,
-      headerAlt: this.match.params.headeralt,
-      headerSrc: this.getHeaderSrc(this.match.params.headersrc)
+      date: '',
+      headerAlt: '',
+      headerSrc: ''
     };
     this.getBlogPageFromDB(this.blogPage.id)
       .then((response) => {
@@ -28,7 +38,7 @@ export class BlogPage {
         if (ageratum.success) {
           this.blogPage = {
             ...this.blogPage,
-            contents: [...this.blogPage.contents, ...ageratum.data]
+            contents: [...ageratum.data]
           };
         }
       });
@@ -62,7 +72,7 @@ export class BlogPage {
 
   getBlogPageFromDB(id: string) {
     const url = `/blogpage/id/${id}`;
-    return fetch(url)
+    return fetch(url);
   }
 
   createParagraphTag(opts: string) {
@@ -88,14 +98,15 @@ export class BlogPage {
       </figure>
     );
   };
-
+  
+// TODO: https://github.com/ionic-team/stencil-helmet
   render() {
     return (
       <div id="blog-page">
         <div class="columns">
           <div class="column col-2"></div>
           <div class="column col-8">
-              <img src={this.blogPage.headerSrc} class="img-responsive" alt={this.blogPage.headerAlt} />
+              <img src={this.getHeaderSrc(this.blogPage.headerSrc)} class="img-responsive" alt={this.blogPage.headerAlt} />
             <h2 id="title">
               {this.blogPage.title}
             </h2>
