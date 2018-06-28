@@ -6,8 +6,7 @@ export interface IBlog {
   date: string, 
   headerAlt: string, 
   headerSrc: string, 
-  title: string, 
-  id: string, 
+  title: string,
   content: string
 };
 
@@ -18,19 +17,20 @@ export interface IBlog {
 
 export class BlogPage {
   @Prop() match: MatchResults;
+  @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() blogPage: IBlog;
 
   componentWillLoad() {
     this.blogPage = {
       title: '',
-      id: this.match.params.blogid,
       content: '',
       date: '',
       headerAlt: '',
       headerSrc: ''
     };
-    this.getBlogPageFromDB(this.blogPage.id)
-      .then((response) => {console.log(response)
+    if (this.isServer === false) {
+    this.getBlogPageFromDB(this.match.params.blogid)
+      .then((response) => {
         if (response.ok) {
           return response.json()
         }
@@ -43,6 +43,7 @@ export class BlogPage {
           };
         }
       });
+      }
   }
 
   getHeaderSrc(headerSrc: string) {
