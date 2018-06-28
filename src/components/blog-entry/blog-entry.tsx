@@ -1,6 +1,15 @@
 import { Component, State } from '@stencil/core';
 import Helmet from '@stencil/helmet';
 
+interface IBlog { 
+  date: string, 
+  headerAlt: string, 
+  headerSrc: string, 
+  title: string, 
+  id: string, 
+  content: string
+};
+
 @Component({
   tag: 'blog-entry',
   styleUrl: 'blog-entry.css'
@@ -58,12 +67,20 @@ export class BlogEntry {
     this.date = `${MONTHS[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
   }
 
-  @State() private title: string;
-  @State() private date: string;
-  @State() private headerSrc: string;
-  @State() private headerAlt: string;
-  @State() private content: string;
-
+  // @State() private title: string;
+  // @State() private date: string;
+  // @State() private headerSrc: string;
+  // @State() private headerAlt: string;
+  // @State() private content: string;
+  @State() private blog: IBlog = {
+  date: '', 
+  headerAlt: '', 
+  headerSrc: '', 
+  title: '', 
+  id: '', 
+  contents: ''
+ };
+  
   onSubmit(e) {
     //Data goes to DB
     e.preventDefault();
@@ -72,62 +89,40 @@ export class BlogEntry {
   getValue(opts: { event; type }) {
     switch (opts.type) {
       case 'title':
-        this.title = opts.event.target.value;
+        this.blog = {
+          ...this.blog,
+        title: opts.event.target.value
+        };
         break;
       case 'date':
-        this.date = opts.event.target.value;
+        this.blog = {
+          ...this.blog,
+        date: opts.event.target.value
+        };
         break;
       case 'headerSrc':
-        this.headerSrc = opts.event.target.value;
+        this.blog = {
+          ...this.blog,
+        headerSrc: opts.event.target.value
+        };
         break;
       case 'headerAlt':
-        this.headerAlt = opts.event.target.value;
+        this.blog = {
+          ...this.blog,
+        headerAlt: opts.event.target.value
+        };
         break;
       case 'textarea':
-        this.content = opts.event.target.value;
+        this.blog = {
+          ...this.blog,
+        contents: opts.event.target.value
+        };
         break;
     }
   }
 
-  render() {
-    return [
-      <div>
-        <Helmet>
-          <title>{this.title}</title>
-        </Helmet>
-        <form onSubmit={e => this.onSubmit(e)} class='form-horizontal'>
-          <div class='form-group col-10 col-mx-auto'>
-            <label class='form-label' htmlFor='title'>
-              Title
-            </label>
-            <input class='form-input' type='text' id='title' value={this.title} onInput={event => this.getValue({ type: 'title', event: event })} />
-            <label class='form-label' htmlFor='date'>
-              Date
-            </label>
-            <input class='form-input' type='text' id='date' value={this.date} onInput={event => this.getValue({ type: 'date', event: event })} />
-            <label class='form-label' htmlFor='headerSRC'>
-              Header SRC
-            </label>
-            <input class='form-input' type='text' id='headerSRC' value={this.headerSrc} onInput={event => this.getValue({ type: 'headerSrc', event: event })} />
-            <label class='form-label' htmlFor='headerALT'>
-              Header ALT
-            </label>
-            <input class='form-input' type='text' id='headerALT' value={this.headerAlt} onInput={event => this.getValue({ type: 'headerAlt', event: event })} />
-            <hr />
-            <textarea id='textarea' class='form-input' value={this.content} onInput={event => this.getValue({ type: 'textarea', event: event })} />
-          </div>
-        </form>
-      </div>,
-      <div id='blog-page'>
-        <div class='columns'>
-          <div class='column col-2' ></div>
-          <div class='column col-8'>
-            <img src={this.headerSrc} class='img-responsive' alt={this.headerAlt} />
-            <h2 id='titleBlog'>{this.title}</h2>
-            <p>Escrito por: Esteban A. Morales</p>
-            <div class='divider' />
-            <div>
-              {this.content.split('').map((content, index, contents) => {
+  getFormattedContents(): string {
+    {this.blog.content.split('').map((content, index, contents) => {
                 let message = '';
                 let src = '';
                 let alt = '';
@@ -147,12 +142,12 @@ export class BlogEntry {
                     message = '';
                     let tag = '';              
                     for (let i = index + 4; i < contents.length; i++) {
-                      if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'h' && contents[i + 3] == '1 '|| '2'|| '3'|| '4'|| '5'|| '6' && contents[i + 4] == '>') {
+                      if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'h' && contents[i + 3] == '1'|| '2'|| '3'|| '4'|| '5'|| '6' && contents[i + 4] == '>') {
                         tag = contents[i + 2] + contents[i + 3];
                         break;
                       }
                       message += contents[i];
-                    }console.log(tag)
+                    }
                     switch(tag){
                       case'h1':
                       return <h1>{message}</h1>;
@@ -175,8 +170,7 @@ export class BlogEntry {
                       if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'a' && contents[i + 3] == '>') {
                         break;
                       }
-                      if (
-                        contents[i] == 'h' && contents[i + 1] == 'r' && contents[i + 2] == 'e' && contents[i + 3] == 'f') {
+                      if (contents[i] == 'h' && contents[i + 1] == 'r' && contents[i + 2] == 'e' && contents[i + 3] == 'f') {
                         for (let j = i + 6; j < contents.length; j++) {
                           if (contents[j] == '\'') {
                             break;
@@ -233,8 +227,48 @@ export class BlogEntry {
                   }
                 }
               })}
+  }
+  render() {
+    return [
+      <div>
+        <Helmet>
+          <title>{this.title}</title>
+        </Helmet>
+        <form onSubmit={e => this.onSubmit(e)} class='form-horizontal'>
+          <div class='form-group col-10 col-mx-auto'>
+            <label class='form-label' htmlFor='title'>
+              Title
+            </label>
+            <input class='form-input' type='text' id='title' value={this.blog.title} onInput={event => this.getValue({ type: 'title', event: event })} />
+            <label class='form-label' htmlFor='date'>
+              Date
+            </label>
+            <input class='form-input' type='text' id='date' value={this.blog.date} onInput={event => this.getValue({ type: 'date', event: event })} />
+            <label class='form-label' htmlFor='headerSRC'>
+              Header SRC
+            </label>
+            <input class='form-input' type='text' id='headerSRC' value={this.blog.headerSrc} onInput={event => this.getValue({ type: 'headerSrc', event: event })} />
+            <label class='form-label' htmlFor='headerALT'>
+              Header ALT
+            </label>
+            <input class='form-input' type='text' id='headerALT' value={this.blog.headerAlt} onInput={event => this.getValue({ type: 'headerAlt', event: event })} />
+            <hr />
+            <textarea id='textarea' class='form-input' value={this.blog.contents} onInput={event => this.getValue({ type: 'textarea', event: event })} />
+          </div>
+        </form>
+      </div>,
+      <div id='blog-page'>
+        <div class='columns'>
+          <div class='column col-2' ></div>
+          <div class='column col-8'>
+            <img src={this.blog.headerSrc} class='img-responsive' alt={this.blog.headerAlt} />
+            <h2 id='titleBlog'>{this.blog.title}</h2>
+            <p>Escrito por: Esteban A. Morales</p>
+            <div class='divider' />
+            <div>
+              {this.getFormattedContents()}
             </div>
-            <p id='dateBlog'>Escrito el {this.date}.</p>
+            <p id='dateBlog'>Written on {this.blog.date}.</p>
           </div>
           <div class='column col-2' />
         </div>
