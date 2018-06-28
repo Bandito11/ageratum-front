@@ -7,7 +7,7 @@ interface IBlog {
   headerSrc: string, 
   title: string, 
   id: string, 
-  content: string
+  contents: string
 };
 
 @Component({
@@ -86,7 +86,7 @@ export class BlogEntry {
     e.preventDefault();
   }
 
-  getValue(opts: { event; type }) {
+  getValue(opts: { event; type: string }) {
     switch (opts.type) {
       case 'title':
         this.blog = {
