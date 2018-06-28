@@ -5,10 +5,12 @@ import Helmet from '@stencil/helmet';
 @Component({ tag: 'table-of-contents', styleUrl: 'table-of-contents.css' })
 export class TableOfContents {
   @Prop() history: RouterHistory;
+  @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() listOfArticles: any[];
 
   componentWillLoad() {
     this.listOfArticles = [];
+    if (this.isServer === false) {
     this.getListOfArticles().then(response => {
       if (response.ok == true) {
         return response.json();
@@ -18,6 +20,7 @@ export class TableOfContents {
         this.listOfArticles = [...this.listOfArticles, ...api.data];
       }
     });
+    }
   }
 
   getListOfArticles() {
