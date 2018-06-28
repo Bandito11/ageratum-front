@@ -1,10 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
-
-@Component({
-  tag: 'blog-page',
-  styleUrl: 'blog-page.css'
-})
+import Helmet from '@stencil/helmet';
 
 export interface IBlog { 
   date: string, 
@@ -12,8 +8,13 @@ export interface IBlog {
   headerSrc: string, 
   title: string, 
   id: string, 
-  contents: string 
+  content: string
 };
+
+@Component({
+  tag: 'blog-page',
+  styleUrl: 'blog-page.css'
+})
 
 export class BlogPage {
   @Prop() match: MatchResults;
@@ -23,7 +24,7 @@ export class BlogPage {
     this.blogPage = {
       title: this.getTitle(this.match.params.title),
       id: this.match.params.blogid,
-      contents: [],
+      content: '',
       date: '',
       headerAlt: '',
       headerSrc: ''
@@ -38,7 +39,7 @@ export class BlogPage {
         if (ageratum.success) {
           this.blogPage = {
             ...this.blogPage,
-            contents: [...ageratum.data]
+            content: ageratum.data
           };
         }
       });
@@ -102,33 +103,103 @@ export class BlogPage {
 // TODO: https://github.com/ionic-team/stencil-helmet
   render() {
     return (
-      <div id="blog-page">
-        <div class="columns">
-          <div class="column col-2"></div>
-          <div class="column col-8">
-              <img src={this.getHeaderSrc(this.blogPage.headerSrc)} class="img-responsive" alt={this.blogPage.headerAlt} />
-            <h2 id="title">
-              {this.blogPage.title}
-            </h2>
-            <p>
-              Escrito por: Esteban A. Morales
-            </p>
-            <div class="divider"></div>
+      <div id='blog-page'>
+      <Helmet>
+        <title>{this.blogPage.title}</title>
+      </Helmet>
+        <div class='columns'>
+          <div class='column col-2' ></div>
+          <div class='column col-8'>
+            <img src={this.blogPage.headerSrc} class='img-responsive' alt={this.blogPage.headerAlt} />
+            <h2 id='titleBlog'>{this.blogPage.title}</h2>
+            <p>Escrito por: Esteban A. Morales</p>
+            <div class='divider' />
             <div>
-              {this.blogPage.contents.map(content => {
-                if (content.type == 'p') {
-                  return this.createParagraphTag(content.content);
-                } else {
-                  return this.createImageTag(content)
+              {this.blogPage.content.split('').map((content, index, contents) => {
+                let message = '';
+                let src = '';
+                let alt = '';
+                let href = '';
+                if (content == '<') {
+                  if (contents[index + 1] == 'p') {
+                    message = '';
+                    for (let i = index + 3; i < contents.length; i++) {
+                      if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'p' && contents[i + 3] == '>') {
+                        break;
+                      }
+                      message += contents[i];
+                    }
+                    return <p>{message}</p>;
+                  }
+                  if (contents[index + 1] == 'a') {
+                    href = '';
+                    message = '';
+                    for (let i = index + 3; i < contents.length; i++) {
+                      if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'a' && contents[i + 3] == '>') {
+                        break;
+                      }
+                      if (
+                        contents[i] == 'h' && contents[i + 1] == 'r' && contents[i + 2] == 'e' && contents[i + 3] == 'f') {
+                        for (let j = i + 6; j < contents.length; j++) {
+                          if (contents[j] == '\'') {
+                            break;
+                          }
+                          href += contents[j];
+                        }
+                      }
+                      if (contents[i] == '>') {
+                        for (let j = i + 1; j < contents.length; j++) {
+                          if (contents[j] == '<' && contents[j + 1] == '/' && contents[j + 2] == 'a' && contents[j + 3] == '>') {
+                            break;
+                          }
+                          if (contents[j] == '<' && contents[j + 1] == 'i' && contents[j + 2] == 'm' && contents[j + 3] == 'g') {
+                            src = '';
+                            for (let k = j + 5; k < contents.length; k++) {
+                              if (contents[k] == '/' && contents[k + 1] == '>') {
+                                break;
+                              }
+                              if (contents[k] == '<' && contents[k + 1] == 's' && contents[k + 2] == 'r' && contents[k + 3] == 'c') {
+                                src = '';
+                                for (let m = k + 6; m < contents.length; m++) {
+                                  if (contents[m] == '\'') {
+                                    break;
+                                  }
+                                  src += contents[m];
+                                }
+                              }
+                              if (contents[k] == '<' && contents[k + 1] == 'a' && contents[k + 2] == 'l' && contents[k + 3] == 't') {
+                                alt = '';
+                                for (let m = k + 6; m < contents.length; m++) {
+                                  if (contents[m] == '\'') {
+                                    break;
+                                  }
+                                  alt += contents[m];
+                                }
+                              }
+                            }
+                            return (
+                              <a href={href} target='_blank'>
+                                <img src={src} alt={alt} />
+                              </a>
+                            );
+                          } else {
+                            message += contents[j];
+                          }
+                        }
+                      }
+                    }
+                    return (
+                      <a href={href} target='_blank'>
+                        {message}
+                      </a>
+                    );
+                  }
                 }
-              })
-              }
+              })}
             </div>
-            <p id="date">
-              Escrito en {this.blogPage.date}.
-            </p>
+            <p id='dateBlog'>Escrito el {this.blogPage.date}.</p>
           </div>
-          <div class="column col-2"></div>
+          <div class='column col-2' />
         </div>
       </div>
     );

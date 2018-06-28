@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@stencil/core": "^0.7.25",
+    "@stencil/helmet": "^0.2.5",
     "@stencil/router": "latest"
   },
   "devDependencies": {
