@@ -30,15 +30,15 @@ export class BlogEntry {
     //   Noviembre,
     //   Diciembre
     // }
-    enum WEEKDAYS {
-      Sunday,
-      Monday,
-      Tuesday,
-      Wednesday,
-      Thursday,
-      Friday,
-      Saturday
-    }
+    // enum WEEKDAYS {
+    //   Sunday,
+    //   Monday,
+    //   Tuesday,
+    //   Wednesday,
+    //   Thursday,
+    //   Friday,
+    //   Saturday
+    // }
     enum MONTHS {
       January,
       February,
@@ -55,7 +55,7 @@ export class BlogEntry {
     }
     this.content = '';
     const today = new Date();
-    this.date = `${WEEKDAYS[today.getDay()]} ${today.getDate()} de ${MONTHS[today.getMonth()]} de ${today.getFullYear()}`;
+    this.date = `${MONTHS[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
   }
 
   @State() private title: string;
@@ -143,6 +143,31 @@ export class BlogEntry {
                     }
                     return <p>{message}</p>;
                   }
+                  if (contents[index + 1] == 'h' && contents[index + 2] == '1 '|| '2'|| '3'|| '4'|| '5'|| '6') {//TODO: Fix this.
+                    message = '';
+                    let tag = '';              
+                    for (let i = index + 4; i < contents.length; i++) {
+                      if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'h' && contents[i + 3] == '1 '|| '2'|| '3'|| '4'|| '5'|| '6' && contents[i + 4] == '>') {
+                        tag = contents[i + 2] + contents[i + 3];
+                        break;
+                      }
+                      message += contents[i];
+                    }console.log(tag)
+                    switch(tag){
+                      case'h1':
+                      return <h1>{message}</h1>;
+                      case'h2':
+                      return <h2>{message}</h2>;
+                      case'h3':
+                      return <h3>{message}</h3>;
+                      case'h4':
+                      return <h4>{message}</h4>;
+                      case'h5':
+                      return <h6>{message}</h6>;
+                      case'h6':
+                      return <h6>{message}</h6>;
+                    }
+                  }
                   if (contents[index + 1] == 'a') {
                     href = '';
                     message = '';
@@ -166,22 +191,22 @@ export class BlogEntry {
                           }
                           if (contents[j] == '<' && contents[j + 1] == 'i' && contents[j + 2] == 'm' && contents[j + 3] == 'g') {
                             src = '';
-                            for (let k = j + 5; k < contents.length; k++) {
+                            for (let k = j + 4; k < contents.length; k++) {
                               if (contents[k] == '/' && contents[k + 1] == '>') {
                                 break;
                               }
-                              if (contents[k] == '<' && contents[k + 1] == 's' && contents[k + 2] == 'r' && contents[k + 3] == 'c') {
+                              if (contents[k] == 's' && contents[k + 1] == 'r' && contents[k + 2] == 'c') {
                                 src = '';
-                                for (let m = k + 6; m < contents.length; m++) {
+                                for (let m = k + 5; m < contents.length; m++) {
                                   if (contents[m] == '\'') {
                                     break;
                                   }
                                   src += contents[m];
                                 }
                               }
-                              if (contents[k] == '<' && contents[k + 1] == 'a' && contents[k + 2] == 'l' && contents[k + 3] == 't') {
+                              if (contents[k] == 'a' && contents[k + 1] == 'l' && contents[k + 2] == 't') {
                                 alt = '';
-                                for (let m = k + 6; m < contents.length; m++) {
+                                for (let m = k + 5; m < contents.length; m++) {
                                   if (contents[m] == '\'') {
                                     break;
                                   }

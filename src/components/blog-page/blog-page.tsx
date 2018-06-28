@@ -22,7 +22,7 @@ export class BlogPage {
 
   componentWillLoad() {
     this.blogPage = {
-      title: this.getTitle(this.match.params.title),
+      title: '',
       id: this.match.params.blogid,
       content: '',
       date: '',
@@ -30,7 +30,7 @@ export class BlogPage {
       headerSrc: ''
     };
     this.getBlogPageFromDB(this.blogPage.id)
-      .then((response) => {
+      .then((response) => {console.log(response)
         if (response.ok) {
           return response.json()
         }
@@ -66,13 +66,16 @@ export class BlogPage {
       if (value == '{') {
         return '?';
       }
+      if (value == '-') {
+        return ' ';
+      }
       return value;
     }).join('');
     return src;
   }
 
   getBlogPageFromDB(id: string) {
-    const url = `/blogpage/id/${id}`;
+    const url = `http://localhost:5000/blogpage/id/${id}`;
     return fetch(url);
   }
 

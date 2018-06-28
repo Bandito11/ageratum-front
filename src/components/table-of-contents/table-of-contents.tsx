@@ -43,12 +43,6 @@ export class TableOfContents {
       if (value == ' ') {
         return '-';
       }
-      if (value == '/') {
-        return '}';
-      }
-      if (value == '?') {
-        return '{';
-      }
       return value;
     }).join('');
     return titleURL;
