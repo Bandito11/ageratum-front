@@ -14,7 +14,7 @@ interface IBlog {
   tag: 'blog-entry',
   styleUrl: 'blog-entry.css'
 })
-export class BlogEntry {
+export class Entry {
   constructor() {
 
   }
