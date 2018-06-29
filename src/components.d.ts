@@ -33,6 +33,72 @@ import {
 declare global {
 
   namespace StencilComponents {
+    interface BlogCode {
+      'code': string;
+    }
+  }
+
+  interface HTMLBlogCodeElement extends StencilComponents.BlogCode, HTMLStencilElement {}
+
+  var HTMLBlogCodeElement: {
+    prototype: HTMLBlogCodeElement;
+    new (): HTMLBlogCodeElement;
+  };
+  interface HTMLElementTagNameMap {
+    'blog-code': HTMLBlogCodeElement;
+  }
+  interface ElementTagNameMap {
+    'blog-code': HTMLBlogCodeElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'blog-code': JSXElements.BlogCodeAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BlogCodeAttributes extends HTMLAttributes {
+      'code'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BlogContents {
+      'contents': string;
+    }
+  }
+
+  interface HTMLBlogContentsElement extends StencilComponents.BlogContents, HTMLStencilElement {}
+
+  var HTMLBlogContentsElement: {
+    prototype: HTMLBlogContentsElement;
+    new (): HTMLBlogContentsElement;
+  };
+  interface HTMLElementTagNameMap {
+    'blog-contents': HTMLBlogContentsElement;
+  }
+  interface ElementTagNameMap {
+    'blog-contents': HTMLBlogContentsElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'blog-contents': JSXElements.BlogContentsAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BlogContentsAttributes extends HTMLAttributes {
+      'contents'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BlogEntry {
 
     }
@@ -58,6 +124,45 @@ declare global {
   namespace JSXElements {
     export interface BlogEntryAttributes extends HTMLAttributes {
 
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BlogFigure {
+      'alt': string;
+      'link': string;
+      'src': string;
+      'text': string;
+    }
+  }
+
+  interface HTMLBlogFigureElement extends StencilComponents.BlogFigure, HTMLStencilElement {}
+
+  var HTMLBlogFigureElement: {
+    prototype: HTMLBlogFigureElement;
+    new (): HTMLBlogFigureElement;
+  };
+  interface HTMLElementTagNameMap {
+    'blog-figure': HTMLBlogFigureElement;
+  }
+  interface ElementTagNameMap {
+    'blog-figure': HTMLBlogFigureElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'blog-figure': JSXElements.BlogFigureAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BlogFigureAttributes extends HTMLAttributes {
+      'alt'?: string;
+      'link'?: string;
+      'src'?: string;
+      'text'?: string;
     }
   }
 }

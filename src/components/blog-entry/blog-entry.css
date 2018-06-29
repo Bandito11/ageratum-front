@@ -3,20 +3,10 @@
 }
 
 
-#dateBlog {
+#dateBlog{
     font-size: 12px;
 }
 
 #titleBlog {
     text-align: center;
-}
-
-figure{
-  padding: 0 25% 0 25%;
-}
-
-figure img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }

@@ -1,8 +1,8 @@
 {
-  "name": "@stencil/starter",
+  "name": "my-blog",
   "private": true,
-  "version": "0.0.6",
-  "description": "Stencil App Starter",
+  "version": "0.0.7",
+  "description": "My personal blog",
   "files": [
     "dist/"
   ],

@@ -1,4 +1,4 @@
-# BlogStencil App Starter
+# Blog
 
 ## To run
 

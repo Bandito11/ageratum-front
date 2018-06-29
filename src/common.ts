@@ -33,3 +33,36 @@ export interface ITableOfContents{
     headerAlt: string;
     headerSrc: string;
 }
+
+    // enum DIAS {
+    //   domingo,
+    //   lunes,
+    //   martes,
+    //   miércoles,
+    //   jueves,
+    //   viernes,
+    //   sábado
+    // }
+    // enum MESES {
+    //   enero,
+    //   febrero,
+    //   marzo,
+    //   abril,
+    //   mayo,
+    //   junio,
+    //   julio,
+    //   agosto,
+    //   septiembre,
+    //   octubre,
+    //   noviembre,
+    //   diciembre
+    // }
+    // enum WEEKDAYS {
+    //   sunday,
+    //   monday,
+    //   tuesday,
+    //   wednesday,
+    //   thursday,
+    //   friday,
+    //   saturday
+    // }

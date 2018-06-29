@@ -14,13 +14,13 @@ export class MyApp {
           </stencil-route-link>
           <section class="navbar-section">
             <a href="https://github.com/Bandito11" class="btn btn-link" target="_blank">
-              <i class="ionicons ion-social-github"></i>
+              <ion-icon name="logo-github"></ion-icon>
             </a>
             <a href="https://www.linkedin.com/in/esteban-morales-5854b67a/" class="btn btn-link" target="_blank">
-              <i class="ionicons ion-social-linkedin"></i>
+              <ion-icon name="logo-linkedin"></ion-icon>
             </a>
             <a href="https://twitter.com/Esteban_PR_11" class="btn btn-link" target="_blank">
-              <i class="ionicons ion-social-twitter"></i>
+              <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </section>
         </header>
@@ -29,7 +29,7 @@ export class MyApp {
           <stencil-router>
             <stencil-route url='/' exact={true} component='table-of-contents'></stencil-route>
             <stencil-route url='/blogid/:blogid/title/:title' component='blog-page'></stencil-route>
-            <stencil-route url='/entry'  component='blog-entry'></stencil-route>
+            <stencil-route url='/entry' component='blog-entry'></stencil-route>
           </stencil-router>
         </main>
       </div>
