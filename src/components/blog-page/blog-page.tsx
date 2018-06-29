@@ -15,7 +15,7 @@ interface IBlog {
   styleUrl: 'blog-page.css'
 })
 
-export class BlogPage {
+export class Page {
   @Prop() match: MatchResults;
   @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() blog: IBlog;
