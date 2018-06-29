@@ -5,7 +5,7 @@ import { Component, Prop } from '@stencil/core';
     styleUrl: 'blog-code.css'
 })
 
-export class BlogCode {
+export class Code {
     constructor() { }
 
     @Prop() private code: string;
