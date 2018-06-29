@@ -5,7 +5,7 @@ import { Component, Prop } from '@stencil/core';
     styleUrl: 'blog-figure.css'
 })
 
-export class BlogFigure {
+export class Figure {
     constructor() { }
 
     @Prop() private link: string;
