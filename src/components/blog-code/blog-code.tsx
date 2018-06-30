@@ -9,9 +9,14 @@ export class Code {
     constructor() { }
 
     @Prop() private code: string;
+    @Prop() private language: string;
 
     render() {
-        return <code>{this.code}</code>
-
+        return (
+            <div>
+                <p>Language: {this.language}</p>
+                <code>{this.code}</code>
+            </div>
+            )
     }
 }

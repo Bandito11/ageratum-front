@@ -106,8 +106,6 @@ export class Contents {
                                                 }
                                                 caption += contents[n];
                                             }
-                                        }else{
-                                            return <a href={href} target='_blank'><img src={src} alt={alt} /></a>
                                         }
                                     }
                                 }

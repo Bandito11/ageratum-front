@@ -35,6 +35,7 @@ declare global {
   namespace StencilComponents {
     interface BlogCode {
       'code': string;
+      'language': string;
     }
   }
 
@@ -58,6 +59,7 @@ declare global {
   namespace JSXElements {
     export interface BlogCodeAttributes extends HTMLAttributes {
       'code'?: string;
+      'language'?: string;
     }
   }
 }
