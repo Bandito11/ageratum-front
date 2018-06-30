@@ -76,11 +76,7 @@ export class TableOfContents {
             <div class="columns">
               {this.listOfArticles.map(article => (
                 <div class="column col-xs-12 col-md-6 col-4">
-                  <stencil-route-link
-                    url={`/blogid/${article.blogid}/title/${this.createTitleURL(
-                      article.title
-                    )}`}
-                  >
+                  <stencil-route-link url={`/blogid/${article.blogid}/title/${this.createTitleURL(article.title)}`}>
                     <div class="card">
                       <div class="card-image">
                         <img

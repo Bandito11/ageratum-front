@@ -34,7 +34,7 @@ export interface ITableOfContents{
     headerSrc: string;
 }
 
-    // enum DIAS {
+    // enum WEEKDAYS {
     //   domingo,
     //   lunes,
     //   martes,
@@ -43,7 +43,7 @@ export interface ITableOfContents{
     //   viernes,
     //   sábado
     // }
-    // enum MESES {
+    // enum MONTHS {
     //   enero,
     //   febrero,
     //   marzo,
@@ -66,3 +66,18 @@ export interface ITableOfContents{
     //   friday,
     //   saturday
     // }
+    // enum MONTHS {
+    //     january,
+    //     february,
+    //     march,
+    //     april,
+    //     may,
+    //     june,
+    //     july,
+    //     august,
+    //     september,
+    //     october,
+    //     november,
+    //     december
+    //   }
+    
