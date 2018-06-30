@@ -134,9 +134,9 @@ declare global {
   namespace StencilComponents {
     interface BlogFigure {
       'alt': string;
-      'link': string;
+      'caption': string;
+      'href': string;
       'src': string;
-      'text': string;
     }
   }
 
@@ -160,9 +160,9 @@ declare global {
   namespace JSXElements {
     export interface BlogFigureAttributes extends HTMLAttributes {
       'alt'?: string;
-      'link'?: string;
+      'caption'?: string;
+      'href'?: string;
       'src'?: string;
-      'text'?: string;
     }
   }
 }
