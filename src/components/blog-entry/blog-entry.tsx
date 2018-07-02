@@ -74,8 +74,7 @@ export class Entry {
   }
 
   createEntry(blog) {
-    // const url = `http://localhost:5000/create/title/${blog.title}/date/${blog.date}/headersrc/${blog.headerSrc}/headeralt/${blog.headerAlt}/contents/${blog.contents}`;
-    const url = `http://localhost:5000/create/`;
+    const url = `http://localhost:5000/create/title/${blog.title}/date/${blog.date}/headersrc/${blog.headerSrc}/headeralt/${blog.headerAlt}/contents/${blog.contents}`;
     const config = {
       headers: {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
