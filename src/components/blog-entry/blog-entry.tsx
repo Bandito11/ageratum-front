@@ -14,8 +14,6 @@ export class Entry {
   @State() private blog: IBlog;
   private appName;
   private password;
-  // @State() private appName;
-  // @State() private key;
 
   componentWillLoad() {
     this.blog = {
@@ -42,19 +40,42 @@ export class Entry {
     e.preventDefault();
     //TODO: HTTP POST
     try {
-      const response = await this.createEntry({ appName: this.appName, password: this.password, blog: this.blog });
-      if (response.status == 200) {
-        console.log(response)
-        // if (response.data.success) {
-        //   console.log(response.data.data)
-        // } else {
-        //   console.log(response.data.error)
-        // }
-      } else {
-        if (response.status == 403) {
-          console.error('Error posting data due to server issues.');
-          console.error(response);
-        }
+      let token;
+      if(typeof(Storage) !== "undefined"){
+        const token = sessionStorage.get('token');
+         if(token){
+           const entryResponse = await this.createEntry({ token: token, blog: this.blog });
+          if (entryResponse.data.status == 200) {
+            if (entryResponse.data.success) {
+               console.log(entryResponse.data.     data); 
+             } else {
+               // Generate new token using username/password
+               const tokenResponse = await generateToken({appName: this.appName, password: this.password });
+               if(tokenResponse.data.success){
+                 sessionStorage.set('token', tokenResponse.data.data);
+                 this.onSubmit(e);
+               }else{
+                 console.error(tokenResponse.data.error);
+                 throw new Error(tokenResponse.data.error);
+             }
+          } else {
+            switch(entryResponse.data.status){
+              case:403
+                console.error(entryResponse.error);
+                throw new Error('Error posting data due to server issues.');
+                break;
+            }
+          }
+         }else{
+           // Generate new token using username/password
+               const tokenResponse = await generateToken({appName: this.appName, password: this.password });
+               if(tokenResponse.data.success){
+                 sessionStorage.set('token', tokenResponse.data.data);
+                 this.onSubmit(e);
+               }else{
+                 console.error(tokenResponse.data.error);
+                 throw new Error(tokenResponse.data.error);
+         }
       }
     } catch (error) {
       console.error(error);
@@ -72,8 +93,11 @@ export class Entry {
     };
     return axios.post(url, {}, config);
   }
-
-  createEntry(opts: { appName, password, blog: IBlog }) {
+generateToken(opts:{appName, password){
+      const url = `http://localhost:5000/authenticate`;
+      return axios.post(url, { appname: opts.appName, password: opts.password});
+}
+  createEntry(opts: { token: token, blog: IBlog }) {
     const correctedBlog: IBlog = {
     id: '',
     title: this.convertText(opts.blog.title),
@@ -81,14 +105,14 @@ export class Entry {
     headerAlt: this.convertText(opts.blog.headerAlt),
     contents: this.convertText(opts.blog.contents),
     date: this.convertText(opts.blog.date)
-    }
-    const url = `http://localhost:5000/blog/create`
+    };
+    const url = `http://localhost:5000/blog/create`;
     const config = {
       headers: {
-        'Authorization': `Bearer banditoisgreat!`
+        'Authorization': `Bearer ${opts.token}`
       }
     };
-    return axios.post(url, { appname: opts.appName, password: opts.password, blog: correctedBlog }, config);
+    return axios.post(url, {blog: correctedBlog }, config);
   }
 
   getValue(opts: { event; type: string }) {
