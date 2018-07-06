@@ -1,11 +1,12 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
 import Helmet from '@stencil/helmet';
+import axios from '../../IAxios';
 
-interface IBlog { 
-  date: string, 
-  headerAlt: string, 
-  headerSrc: string, 
+interface IBlog {
+  date: string,
+  headerAlt: string,
+  headerSrc: string,
   title: string,
   contents: string
 };
@@ -15,7 +16,7 @@ interface IBlog {
   styleUrl: 'blog-page.css'
 })
 
-export class Page {
+export class BlogPage {
   @Prop() match: MatchResults;
   @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() blog: IBlog;
@@ -28,26 +29,22 @@ export class Page {
       headerAlt: '',
       headerSrc: ''
     };
-    if (this.isServer === false) {
-    this.getBlogPageFromDB(this.match.params.blogid)
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-      })
-      .then(ageratum => {
-        if (ageratum.success) {
-          this.blog = {
-            ...this.blog,
-            contents: ageratum.data
-          };
-        }
-      });
-      }
+    if (this.isServer == false) {
+      this.getBlogPageFromDB(this.match.params.blogid)
+        .then(response => {
+          if (response.status == 200) {
+            response.data.success ? this.blog = {
+              ...this.blog,
+              ...response.data.data
+            } :
+              alert('There was an error retrieving the data. Please reload the page and try again!');
+          }
+        });
+    }
   }
 
-  getHeaderSrc(headerSrc: string) {
-    let src = headerSrc.split('').map(value => {
+  convertText(text: string) {
+    let convertedText = text.split('').map(value => {
       if (value == '}') {
         return '/';
       }
@@ -56,70 +53,33 @@ export class Page {
       }
       return value;
     }).join('');
-    return src;
+    return convertedText;
   }
 
-  getTitle(title: string) {
-    let src = title.split('').map(value => {
-      if (value == '}') {
-        return '/';
-      }
-      if (value == '{') {
-        return '?';
-      }
-      if (value == '-') {
-        return ' ';
-      }
-      return value;
-    }).join('');
-    return src;
+  getBlogPageFromDB(blogid: string) {
+    const url = `http://localhost:5000/blogpage/id/${blogid}`;
+    return axios.get(url);
   }
 
-  getBlogPageFromDB(id: string) {
-    const url = `http://localhost:5000/blogpage/id/${id}`;
-    return fetch(url);
-  }
-
-  createParagraphTag(opts: string) {
-    let contents = opts.split('').map(value => {
-      if (value == '}') {
-        return '/';
-      }
-      if (value == '{') {
-        return '?';
-      }
-      return value;
-    }).join('');
-    return <p>{contents}</p>;
-  }
-
-  createImageTag(opts: { link: string, src: string, alt: string, contents: string }) {
-    return (
-      <figure class="figure">
-        <a href={opts.link} target="_blank">
-          <img src={opts.src} class="img-responsive" alt={opts.alt} />
-        </a>
-        <figcaption class="figure-caption text-center">{opts.contents}</figcaption>
-      </figure>
-    );
-  };
-  
-// TODO: https://github.com/ionic-team/stencil-helmet
   render() {
     return (
       <div>
-      <Helmet>
-        <title>{this.blog.title}</title>
-      </Helmet>
+        <Helmet>
+          <title>{this.blog.title}</title>
+        </Helmet>
         <div class='columns'>
           <div class='column col-2' ></div>
           <div class='column col-8'>
-          <img src={this.blog.headerSrc} class='img-responsive' alt={this.blog.headerAlt} />
-              <h2 id='titleBlog'>{this.blog.title}</h2>
-              <p>Written by: Esteban A. Morales</p>
-              <div class='divider' />
-              <blog-contents contents={this.blog.contents}></blog-contents>
-              <p id='dateBlog'>Originally published on {this.blog.date}.</p>
+            <img
+              src={this.convertText(this.blog.headerSrc)}
+              class='img-responsive'
+              alt={this.convertText(this.blog.headerAlt)}
+            />
+            <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
+            <p>Escrito por: Esteban A. Morales</p>
+            <div class='divider' />
+            <blog-contents contents={this.convertText(this.blog.contents)} />
+            <p id='dateBlog'>Originalmente publicado en {this.convertText(this.blog.date)}.</p>
           </div>
           <div class='column col-2' />
         </div>
