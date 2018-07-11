@@ -57,7 +57,7 @@ export class BlogPage {
   }
 
   getBlogPageFromDB(blogid: string) {
-    const url = `http://localhost:5000/blogpage/id/${blogid}`;
+    const url = `http://localhost:5000/blog/article/id/${blogid}`;
     return axios.get(url);
   }
 

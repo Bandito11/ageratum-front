@@ -28,7 +28,7 @@ export class TableOfContents {
   }
 
   getListOfArticles() {
-    const url = 'http://localhost:5000/bloglist';
+    const url = 'http://localhost:5000/blog/list';
     return axios.get(url);
   }
 

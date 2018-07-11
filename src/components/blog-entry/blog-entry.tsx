@@ -41,41 +41,36 @@ export class Entry {
     //TODO: HTTP POST
     try {
       let token;
-      if(typeof(Storage) !== "undefined"){
+      if (typeof (Storage) !== "undefined") {
         const token = sessionStorage.get('token');
-         if(token){
-           const entryResponse = await this.createEntry({ token: token, blog: this.blog });
+        if (token) {
+          const entryResponse = await this.createEntry({ token: token, blog: this.blog });
           if (entryResponse.data.status == 200) {
             if (entryResponse.data.success) {
-               console.log(entryResponse.data.     data); 
-             } else {
-               // Generate new token using username/password
-               const tokenResponse = await generateToken({appName: this.appName, password: this.password });
-               if(tokenResponse.data.success){
-                 sessionStorage.set('token', tokenResponse.data.data);
-                 this.onSubmit(e);
-               }else{
-                 console.error(tokenResponse.data.error);
-                 throw new Error(tokenResponse.data.error);
-             }
+              console.log(entryResponse.data.data);
+            } else {
+              // Generate new token using username/password
+              const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+              if (tokenResponse.data.success) {
+                sessionStorage.set('token', tokenResponse.data.data);
+                this.onSubmit(e);
+              } else {
+                console.error(tokenResponse.data.error);
+                throw new Error(tokenResponse.data.error);
+              }
+            }
           } else {
-            switch(entryResponse.data.status){
-              case:403
-                console.error(entryResponse.error);
-                throw new Error('Error posting data due to server issues.');
-                break;
+            // Generate new token using username/password
+            const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+            if (tokenResponse.data.success) {
+              sessionStorage.set('token', tokenResponse.data.data);
+              this.onSubmit(e);
+            } else {
+              console.error(tokenResponse.data.error);
+              throw new Error(tokenResponse.data.error);
             }
           }
-         }else{
-           // Generate new token using username/password
-               const tokenResponse = await generateToken({appName: this.appName, password: this.password });
-               if(tokenResponse.data.success){
-                 sessionStorage.set('token', tokenResponse.data.data);
-                 this.onSubmit(e);
-               }else{
-                 console.error(tokenResponse.data.error);
-                 throw new Error(tokenResponse.data.error);
-         }
+        }
       }
     } catch (error) {
       console.error(error);
@@ -93,26 +88,26 @@ export class Entry {
     };
     return axios.post(url, {}, config);
   }
-generateToken(opts:{appName, password){
-      const url = `http://localhost:5000/authenticate`;
-      return axios.post(url, { appname: opts.appName, password: opts.password});
-}
-  createEntry(opts: { token: token, blog: IBlog }) {
+  generateToken(opts: { appName, password }) {
+    const url = `http://localhost:5000/authenticate`;
+    return axios.post(url, { appname: opts.appName, password: opts.password });
+  }
+  createEntry(opts: { token: string, blog: IBlog }) {
     const correctedBlog: IBlog = {
-    id: '',
-    title: this.convertText(opts.blog.title),
-    headerSrc: this.convertText(opts.blog.headerSrc),
-    headerAlt: this.convertText(opts.blog.headerAlt),
-    contents: this.convertText(opts.blog.contents),
-    date: this.convertText(opts.blog.date)
+      id: '',
+      title: this.convertText(opts.blog.title),
+      headerSrc: this.convertText(opts.blog.headerSrc),
+      headerAlt: this.convertText(opts.blog.headerAlt),
+      contents: this.convertText(opts.blog.contents),
+      date: this.convertText(opts.blog.date)
     };
-    const url = `http://localhost:5000/blog/create`;
+    const url = `http://localhost:5000/create`;
     const config = {
       headers: {
         'Authorization': `Bearer ${opts.token}`
       }
     };
-    return axios.post(url, {blog: correctedBlog }, config);
+    return axios.post(url, { blog: correctedBlog }, config);
   }
 
   getValue(opts: { event; type: string }) {
