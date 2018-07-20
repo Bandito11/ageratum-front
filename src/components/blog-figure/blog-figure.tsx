@@ -12,15 +12,15 @@ export class Figure {
     @Prop() private src: string;
     @Prop() private alt: string;
     @Prop() private caption: string;
-    
+
     render() {
         return (
             <figure class="figure">
-            <a href={this.href} target="_blank">
-              <img src={this.src} class="img-responsive" alt={this.alt} />
-            </a>
-            <figcaption class="figure-caption text-center">{this.caption}</figcaption>
-          </figure>
+                <a href={this.href} target="_blank">
+                    <img src={this.src} class="img-responsive" alt={this.alt} />
+                </a>
+                <figcaption class="figure-caption text-center">{this.caption}</figcaption>
+            </figure>
         )
 
     }
