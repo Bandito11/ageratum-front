@@ -48,11 +48,8 @@ export class Contents {
                             return <p>{message}</p>;
                         }
                         if (contents[index + 1] == 'a' && (contents[index + 3] == 'h' && contents[index + 4] == 'r' && contents[index + 5] == 'e' && contents[index + 6] == 'f')) {
-                            let src = '';
-                            let alt = '';
                             let href = '';
                             message = '';
-                            let caption = '';
                             for (let i = index + 3; i < contents.length; i++) {
                                 if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'a' && contents[i + 3] == '>') {
                                     break;
@@ -70,47 +67,59 @@ export class Contents {
                                         if (contents[j] == '<' && contents[j + 1] == '/' && contents[j + 2] == 'a' && contents[j + 3] == '>') {
                                             break;
                                         }
-                                        if (contents[j] == '<' && contents[j + 1] == 'i' && contents[j + 2] == 'm' && contents[j + 3] == 'g') {
-                                            src = '';
-                                            for (let k = j + 4; k < contents.length; k++) {
-                                                if (contents[k] == '/' && contents[k + 1] == '>') {
-                                                    break;
-                                                }
-                                                if (contents[k] == 's' && contents[k + 1] == 'r' && contents[k + 2] == 'c') {
-                                                    src = '';
-                                                    for (let m = k + 5; m < contents.length; m++) {
-                                                        if (contents[m] == '\'') {
-                                                            break;
-                                                        }
-                                                        src += contents[m];
-                                                    }
-                                                }
-                                                if (contents[k] == 'a' && contents[k + 1] == 'l' && contents[k + 2] == 't') {
-                                                    alt = '';
-                                                    for (let m = k + 5; m < contents.length; m++) {
-                                                        if (contents[m] == '\'') {
-                                                            break;
-                                                        }
-                                                        alt += contents[m];
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            message += contents[j];
-                                        }
-                                        if (contents[j] == '<' && contents[j + 1] == 'c' && contents[j + 2] == 'a' && contents[j + 3] == 'p' && contents[j + 4] == 't' && contents[j + 5] == 'i' && contents[j + 6] == 'o' && contents[j + 7] == 'n' && contents[j + 8] == '>') {
-                                            caption = '';
-                                            for (let n = j + 9; n < contents.length; n++) {
-                                                if (contents[n] == '<' && contents[n + 1] == '/' && contents[n + 2] == 'c' && contents[n + 3] == 'a' && contents[n + 4] == 'p' && contents[n + 5] == 't' && contents[n + 6] == 'i' && contents[n + 7] == 'o' && contents[n + 8] == 'n' && contents[n + 9] == '>' && contents[n + 10] == '<' && contents[n + 11] == '/' && contents[n + 12] == 'a' && contents[n + 13] == '>') {
-                                                    return <blog-figure href={href} src={src} alt={alt} caption={caption}></blog-figure>;
-                                                }
-                                                caption += contents[n];
-                                            }
-                                        }
+                                        message += contents[j];
                                     }
                                 }
                             }
                             return <a href={href} target='_blank'>{message}</a>;
+                        }
+                        if (contents[index + 1] == 'b' && contents[index + 2] == 'l' && contents[index + 3] == 'o' && contents[index + 4] == 'g' && contents[index + 5] == '-'
+                            && contents[index + 6] == 'f' && contents[index + 7] == 'i' && contents[index + 8] == 'g' && contents[index + 9] == 'u' && contents[index + 10] == 'r' && contents[index + 11] == 'e') {
+                            message = '';
+                            let href = '';
+                            let src = '';
+                            let alt = '';
+                            let caption = '';
+                            for (let i = index + 13; i < contents.length; i++) {
+                                if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'b' && contents[i + 3] == 'l' && contents[i + 4] == 'o' && contents[i + 5] == 'g'
+                                    && contents[i + 6] == '-' && contents[i + 7] == 'f' && contents[i + 8] == 'i' && contents[i + 9] == 'g' && contents[i + 10] == 'u' && contents[i + 11] == 'r'
+                                    && contents[i + 12] == 'e' && contents[i + 13] == '>') {
+                                    break;
+                                }
+                                if (contents[i] == 'h' && contents[i + 1] == 'r' && contents[i + 2] == 'e' && contents[i + 3] == 'f') {
+                                    for (let j = i + 6; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        href += contents[j];
+                                    }
+                                }
+                                if (contents[i] == 's' && contents[i + 1] == 'r' && contents[i + 2] == 'c') {
+                                    for (let j = i + 5; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        src += contents[j];
+                                    }
+                                }
+                                if (contents[i] == 'a' && contents[i + 1] == 'l' && contents[i + 2] == 't') {
+                                    for (let j = i + 5; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        alt += contents[j];
+                                    }
+                                }
+                                if (contents[i] == 'c' && contents[i + 1] == 'a' && contents[i + 2] == 'p' && contents[i + 3] == 't' && contents[i + 4] == 'i' && contents [ i+ 5] == 'o' && contents [ i + 6] == 'n') {
+                                    for (let j = i + 9; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        caption += contents[j];
+                                    }
+                                }
+                            }
+                            return <blog-figure src={src} href={href} alt={alt} caption={caption}></blog-figure>;
                         }
                     }
                 })}
