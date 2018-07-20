@@ -23,7 +23,7 @@ export class BlogPage {
 
   componentWillLoad() {
     this.blog = {
-      title: '',
+      title: this.match.params.title,
       contents: '',
       date: '',
       headerAlt: '',

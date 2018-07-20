@@ -12,17 +12,17 @@ export class MyApp {
         <header class="navbar">
           <stencil-route-link url="/">
             <section class="navbar-section">
-              <p class="navbar-brand mr-2">mi icono</p>
+              <p class="navbar-brand mr-2">Esteban's Blog</p>
             </section>
           </stencil-route-link>
           <section class="navbar-section">
-            <a href="https://github.com/Bandito11" class="btn btn-link" target="_blank">
+            <a href="https://github.com/Bandito11" target="_blank">
               <ion-icon name="logo-github"></ion-icon>
             </a>
-            <a href="https://www.linkedin.com/in/esteban-morales-5854b67a/" class="btn btn-link" target="_blank">
+            <a href="https://www.linkedin.com/in/esteban-morales-5854b67a/" target="_blank">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
-            <a href="https://twitter.com/Esteban_PR_11" class="btn btn-link" target="_blank">
+            <a href="https://twitter.com/Esteban_PR_11" target="_blank">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </section>

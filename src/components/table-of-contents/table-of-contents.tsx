@@ -1,5 +1,4 @@
-import { Component, State, Prop } from '@stencil/core';
-import { RouterHistory } from '@stencil/router';
+import { Component, Prop, State } from '@stencil/core';
 import Helmet from '@stencil/helmet';
 import axios from '../../IAxios';
 
@@ -8,9 +7,7 @@ import axios from '../../IAxios';
   styleUrl: 'table-of-contents.css'
 })
 export class TableOfContents {
-  @Prop() history: RouterHistory;
-  @Prop({ context: 'isServer' })
-  private isServer: boolean;
+  @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() listOfArticles: any[];
 
   componentWillLoad() {
@@ -87,7 +84,7 @@ export class TableOfContents {
                           {this.convertText(article.date)}
                         </div>
                       </div>
-                      <div class='card-body'>{this.convertText(article.contents)}</div>
+                      <div class='card-body'><blog-contents contents={this.convertText(article.contents)} /></div>
                     </div>
                     <br />
                   </stencil-route-link>

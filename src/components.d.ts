@@ -27,7 +27,6 @@ import '@stencil/router';
 
 import {
   MatchResults,
-  RouterHistory,
 } from '@stencil/router';
 
 declare global {
@@ -240,7 +239,7 @@ declare global {
 
   namespace StencilComponents {
     interface TableOfContents {
-      'history': RouterHistory;
+
     }
   }
 
@@ -263,7 +262,7 @@ declare global {
   }
   namespace JSXElements {
     export interface TableOfContentsAttributes extends HTMLAttributes {
-      'history'?: RouterHistory;
+
     }
   }
 }

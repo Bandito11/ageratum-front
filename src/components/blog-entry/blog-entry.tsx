@@ -40,9 +40,8 @@ export class Entry {
     e.preventDefault();
     //TODO: HTTP POST
     try {
-      let token;
       if (typeof (Storage) !== "undefined") {
-        const token = sessionStorage.get('token');
+        const token = sessionStorage.token;
         if (token) {
           const entryResponse = await this.createEntry({ token: token, blog: this.blog });
           if (entryResponse.data.status == 200) {
@@ -59,11 +58,13 @@ export class Entry {
                 throw new Error(tokenResponse.data.error);
               }
             }
-          } else {
-            // Generate new token using username/password
-            const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+          }
+        } else {
+          // Generate new token using username/password
+          const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+          if(tokenResponse.status == 200){
             if (tokenResponse.data.success) {
-              sessionStorage.set('token', tokenResponse.data.data);
+              sessionStorage.token = tokenResponse.data.data;
               this.onSubmit(e);
             } else {
               console.error(tokenResponse.data.error);
@@ -78,20 +79,11 @@ export class Entry {
     }
   }
 
-  verifyUser(user) {
-    const url = `http://localhost:5000/authenticate/`;
-    const config = {
-      headers: {
-        'appName': user.appName,
-        'key': user.key
-      }
-    };
-    return axios.post(url, {}, config);
-  }
   generateToken(opts: { appName, password }) {
     const url = `http://localhost:5000/authenticate`;
-    return axios.post(url, { appname: opts.appName, password: opts.password });
+    return axios.post(url, { appname: opts.appName, key: opts.password });
   }
+
   createEntry(opts: { token: string, blog: IBlog }) {
     const correctedBlog: IBlog = {
       id: '',
@@ -104,10 +96,10 @@ export class Entry {
     const url = `http://localhost:5000/create`;
     const config = {
       headers: {
-        'Authorization': `Bearer ${opts.token}`
+        'Authorization': `Bearer ${sessionStorage.token}`
       }
     };
-    return axios.post(url, { blog: correctedBlog }, config);
+    return axios.post(url, correctedBlog, config);
   }
 
   getValue(opts: { event; type: string }) {
@@ -178,14 +170,14 @@ export class Entry {
                   <label class='form-label' htmlFor='appName'>App Name</label>
                   <input
                     class='form-input'
-                    type='text'
+                    type='password'
                     id='appName'
                     value={this.appName}
                     onInput={event => this.getValue({ type: 'appName', event: event })} />
                   <label class='form-label' htmlFor='password'>Password</label>
                   <input
                     class='form-input'
-                    type='text'
+                    type='password'
                     id='password'
                     value={this.password}
                     onInput={event => this.getValue({ type: 'password', event: event })} />
