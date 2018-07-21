@@ -12,7 +12,7 @@ export class TableOfContents {
 
   componentWillLoad() {
     this.listOfArticles = [];
-    if (this.isServer == false) {
+    if (this.isServer === false) {
       this.getListOfArticles()
         .then(response => {
           if (response.status == 200) {

@@ -29,7 +29,7 @@ export class BlogPage {
       headeralt: '',
       headersrc: ''
     };
-    if (this.isServer == false) {
+    if (this.isServer === false) {
       this.getBlogPageFromDB(this.match.params.blogid)
         .then(response => {
           if (response.status == 200) {
