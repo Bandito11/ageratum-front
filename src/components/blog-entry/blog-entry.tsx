@@ -18,8 +18,8 @@ export class Entry {
   componentWillLoad() {
     this.blog = {
       date: '',
-      headerAlt: '',
-      headerSrc: '',
+      headeralt: '',
+      headersrc: '',
       title: '',
       id: '',
       contents: ''
@@ -29,7 +29,8 @@ export class Entry {
     currentMonth = currentMonth[0].toUpperCase() + currentMonth.slice(1, currentMonth.length);
     let currentWeekday = WEEKDAYS[today.getDay()];
     currentWeekday = currentWeekday[0].toUpperCase() + currentWeekday.slice(1, currentWeekday.length);
-    this.date = `${currentWeekday} ${today.getDate()} de ${currentMonth} de ${today.getFullYear()}`;
+    // this.date = `${currentWeekday} ${today.getDate()} de ${currentMonth} de ${today.getFullYear()}`; //En español
+    this.date = `${currentMonth} ${today.getDate()}, ${today.getFullYear()}`; //In English
     this.blog = {
       ...this.blog,
       date: this.date
@@ -40,42 +41,47 @@ export class Entry {
     e.preventDefault();
     //TODO: HTTP POST
     try {
-      if (typeof (Storage) !== "undefined") {
-        const token = sessionStorage.token;
-        if (token) {
-          const entryResponse = await this.createEntry({ token: token, blog: this.blog });
-          if (entryResponse.data.status == 200) {
-            if (entryResponse.data.success) {
-              console.log(entryResponse.data.data);
-            } else {
-              // Generate new token using username/password
-              const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+      if (confirm('Do you want to save?')) {
+        if (typeof (Storage) !== "undefined") {
+          const token = sessionStorage.token;
+          if (token) {
+            const entryResponse = await this.createEntry({ token: token, blog: this.blog });
+            if (entryResponse.status == 200) {
+              if (entryResponse.data.success) {
+                alert('Success: Blog was saved successfully!');
+              } else if (!entryResponse.data.success) alert('Error: Blog already exists with the same id!');
+              else {
+                // Generate new token using username/password
+                const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+                if (tokenResponse.status == 200) {
+                  if (tokenResponse.data.success) {
+                    sessionStorage.token = tokenResponse.data.data;
+                    this.onSubmit(e);
+                  } else {
+                    alert(tokenResponse.data.error);
+                  }
+                }
+              }
+            }
+          } else {
+            // Generate new token using username/password
+            const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
+            if (tokenResponse.status == 200) {
               if (tokenResponse.data.success) {
-                sessionStorage.set('token', tokenResponse.data.data);
+                sessionStorage.token = tokenResponse.data.data;
                 this.onSubmit(e);
               } else {
-                console.error(tokenResponse.data.error);
-                throw new Error(tokenResponse.data.error);
+                alert(tokenResponse.data.error);
               }
             }
           }
-        } else {
-          // Generate new token using username/password
-          const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
-          if(tokenResponse.status == 200){
-            if (tokenResponse.data.success) {
-              sessionStorage.token = tokenResponse.data.data;
-              this.onSubmit(e);
-            } else {
-              console.error(tokenResponse.data.error);
-              throw new Error(tokenResponse.data.error);
-            }
-          }
         }
+      } else {
+        alert('Data was not saved on DB.')
       }
+
     } catch (error) {
-      console.error(error);
-      //TODO: Implement error handler.
+      alert(error);
     }
   }
 
@@ -88,8 +94,8 @@ export class Entry {
     const correctedBlog: IBlog = {
       id: '',
       title: this.convertText(opts.blog.title),
-      headerSrc: this.convertText(opts.blog.headerSrc),
-      headerAlt: this.convertText(opts.blog.headerAlt),
+      headersrc: this.convertText(opts.blog.headersrc),
+      headeralt: this.convertText(opts.blog.headeralt),
       contents: this.convertText(opts.blog.contents),
       date: this.convertText(opts.blog.date)
     };
@@ -122,16 +128,16 @@ export class Entry {
           date: opts.event.target.value
         };
         break;
-      case 'headerSrc':
+      case 'headersrc':
         this.blog = {
           ...this.blog,
-          headerSrc: opts.event.target.value
+          headersrc: opts.event.target.value
         };
         break;
-      case 'headerAlt':
+      case 'headeralt':
         this.blog = {
           ...this.blog,
-          headerAlt: opts.event.target.value
+          headeralt: opts.event.target.value
         };
         break;
       case 'textarea':
@@ -195,20 +201,20 @@ export class Entry {
                     id='date'
                     placeholder={this.date}
                     onInput={event => this.getValue({ type: 'date', event: event })} />
-                  <label class='form-label' htmlFor='headerSRC'>Header SRC</label>
+                  <label class='form-label' htmlFor='headersRC'>Header SRC</label>
                   <input
                     class='form-input'
                     type='text'
-                    id='headerSRC'
-                    value={this.blog.headerSrc}
-                    onInput={event => this.getValue({ type: 'headerSrc', event: event })} />
-                  <label class='form-label' htmlFor='headerALT'>Header ALT</label>
+                    id='headersRC'
+                    value={this.blog.headersrc}
+                    onInput={event => this.getValue({ type: 'headersrc', event: event })} />
+                  <label class='form-label' htmlFor='headeraLT'>Header ALT</label>
                   <input
                     class='form-input'
                     type='text'
-                    id='headerALT'
-                    value={this.blog.headerAlt}
-                    onInput={event => this.getValue({ type: 'headerAlt', event: event })} />
+                    id='headeraLT'
+                    value={this.blog.headeralt}
+                    onInput={event => this.getValue({ type: 'headeralt', event: event })} />
                   <hr />
                   <textarea
                     id='textarea'
@@ -220,16 +226,12 @@ export class Entry {
               </form>
             </div>
             <div class='column col-md-10 col-6 col-mx-auto'>
-              <img
-                src={this.blog.headerSrc}
-                class='img-responsive'
-                alt={this.blog.headerAlt}
-              />
+              <img src={this.blog.headersrc} class='img-responsive' alt={this.blog.headeralt} />
               <h2 id='titleBlog'>{this.blog.title}</h2>
-              <p>Escrito por: Esteban A. Morales</p>
+              <p>Written by: Esteban A. Morales</p>
               <div class='divider' />
               <blog-contents contents={this.blog.contents} />
-              <p id='dateBlog'>Originalmente publicado en {this.blog.date}.</p>
+              <p id='dateBlog'>Originally published on {this.blog.date}.</p>
             </div>
           </div>
         </div>

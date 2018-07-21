@@ -5,8 +5,8 @@ import axios from '../../IAxios';
 
 interface IBlog {
   date: string,
-  headerAlt: string,
-  headerSrc: string,
+  headeralt: string,
+  headersrc: string,
   title: string,
   contents: string
 };
@@ -26,8 +26,8 @@ export class BlogPage {
       title: this.match.params.title,
       contents: '',
       date: '',
-      headerAlt: '',
-      headerSrc: ''
+      headeralt: '',
+      headersrc: ''
     };
     if (this.isServer == false) {
       this.getBlogPageFromDB(this.match.params.blogid)
@@ -70,16 +70,12 @@ export class BlogPage {
         <div class='columns'>
           <div class='column col-2' ></div>
           <div class='column col-8'>
-            <img
-              src={this.convertText(this.blog.headerSrc)}
-              class='img-responsive'
-              alt={this.convertText(this.blog.headerAlt)}
-            />
+            <img src={this.convertText(this.blog.headersrc)} class='img-responsive' alt={this.convertText(this.blog.headeralt)} />
             <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
-            <p>Escrito por: Esteban A. Morales</p>
+            <p>Written by: Esteban A. Morales</p>
             <div class='divider' />
             <blog-contents contents={this.convertText(this.blog.contents)} />
-            <p id='dateBlog'>Originalmente publicado en {this.convertText(this.blog.date)}.</p>
+            <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
           </div>
           <div class='column col-2' />
         </div>

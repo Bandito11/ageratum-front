@@ -2,8 +2,8 @@ export interface IBlog {
   id: string;
   title: string;
   date: string;
-  headerAlt: string;
-  headerSrc: string;
+  headeralt: string;
+  headersrc: string;
   contents: string;
 }
 
@@ -14,49 +14,49 @@ export interface IResponse<T> {
   dateStamp: Date;
 }
 
+// export enum WEEKDAYS {
+//   domingo,
+//   lunes,
+//   martes,
+//   miércoles,
+//   jueves,
+//   viernes,
+//   sábado
+// }
+// export enum MONTHS {
+//   enero,
+//   febrero,
+//   marzo,
+//   abril,
+//   mayo,
+//   junio,
+//   julio,
+//   agosto,
+//   septiembre,
+//   octubre,
+//   noviembre,
+//   diciembre
+// }
 export enum WEEKDAYS {
-  domingo,
-  lunes,
-  martes,
-  miércoles,
-  jueves,
-  viernes,
-  sábado
+  sunday,
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday
 }
 export enum MONTHS {
-  enero,
-  febrero,
-  marzo,
-  abril,
-  mayo,
-  junio,
-  julio,
-  agosto,
-  septiembre,
-  octubre,
-  noviembre,
-  diciembre
-}
-// enum WEEKDAYS {
-//   sunday,
-//   monday,
-//   tuesday,
-//   wednesday,
-//   thursday,
-//   friday,
-//   saturday
-// }
-// enum MONTHS {
-//     january,
-//     february,
-//     march,
-//     april,
-//     may,
-//     june,
-//     july,
-//     august,
-//     september,
-//     october,
-//     november,
-//     december
-//   }
+    january,
+    february,
+    march,
+    april,
+    may,
+    june,
+    july,
+    august,
+    september,
+    october,
+    november,
+    december
+  }
