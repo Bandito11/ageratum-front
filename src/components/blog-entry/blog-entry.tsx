@@ -50,10 +50,9 @@ export class Entry {
               if (entryResponse.data.success) {
                 alert('Blog was saved successfully!');
               }
-              // if(entryResponse.data.error == 'JsonWebTokenError' || 'TokenExpiredError' || 'NotBeforeError') {
-              //   this.generateToken({ appName: this.appName, password: this.password });
-              //   this.onSubmit(e);    
-              // }
+              if(entryResponse.data.error == 'JsonWebTokenError' || 'TokenExpiredError' || 'NotBeforeError') {
+                this.generateToken({ appName: this.appName, password: this.password });
+              }
             }
           } else {
             // Generate new token using username/password
@@ -99,7 +98,7 @@ export class Entry {
     const url = `${domain}/create`;
     const config = {
       headers: {
-        'Authorization': `Bearer ${sessionStorage.token}`
+        'Authorization': `${sessionStorage.token}`
       }
     };
     return axios.post(url, correctedBlog, config);

@@ -27,7 +27,7 @@ export class TableOfContents {
   }
 
   getListOfArticles() {
-    const url = `${domain}/blog/list`; console.log(url)
+    const url = `${domain}/blog/list`;
     return axios.get(url);
   }
 
@@ -82,7 +82,7 @@ export class TableOfContents {
                         />
                       </div>
                       <div class='card-header'>
-                        <div class='card-title'>{this.convertText(article.title)}</div>
+                        <div class='card-title h3'>{this.convertText(article.title)}</div>
                         <div class='card-subtitle text-gray'>
                           {this.convertText(article.date)}
                         </div>

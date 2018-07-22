@@ -22,8 +22,8 @@ export class BlogPage {
   @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() blog: IBlog;
   blogLoaded: boolean;
-  
-  componentWillLoad() {
+
+  componentWillLoad() {console.log(this.match.params)
     this.blog = {
       title: this.match.params.title,
       contents: '',
@@ -62,10 +62,6 @@ export class BlogPage {
   getBlogPageFromDB(blogid: string) {
     const url = `${domain}/blog/article/id/${blogid}`;
     return axios.get(url);
-  }
-
-  lol() {
-
   }
 
   render() {
