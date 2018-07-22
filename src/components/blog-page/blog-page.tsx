@@ -2,6 +2,7 @@ import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
 import Helmet from '@stencil/helmet';
 import axios from '../../IAxios';
+import { domain } from '../../common';
 
 interface IBlog {
   date: string,
@@ -20,7 +21,8 @@ export class BlogPage {
   @Prop() match: MatchResults;
   @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() blog: IBlog;
-
+  blogLoaded: boolean;
+  
   componentWillLoad() {
     this.blog = {
       title: this.match.params.title,
@@ -32,6 +34,7 @@ export class BlogPage {
     if (this.isServer === false) {
       this.getBlogPageFromDB(this.match.params.blogid)
         .then(response => {
+          this.blogLoaded = true;
           if (response.status == 200) {
             response.data.success ? this.blog = {
               ...this.blog,
@@ -57,8 +60,12 @@ export class BlogPage {
   }
 
   getBlogPageFromDB(blogid: string) {
-    const url = `http://localhost:5000/blog/article/id/${blogid}`;
+    const url = `${domain}/blog/article/id/${blogid}`;
     return axios.get(url);
+  }
+
+  lol() {
+
   }
 
   render() {
@@ -70,6 +77,7 @@ export class BlogPage {
         <div class='columns'>
           <div class='column col-2' ></div>
           <div class='column col-8'>
+            {this.blogLoaded ? <div></div> : <div  class="loading loading-lg"></div>}
             <img src={this.convertText(this.blog.headersrc)} class='img-responsive' alt={this.convertText(this.blog.headeralt)} />
             <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
             <p>Written by: Esteban A. Morales</p>

@@ -1,7 +1,7 @@
 import { Component, State } from '@stencil/core';
 import Helmet from '@stencil/helmet';
 import axios from '../../IAxios';
-import { IBlog, MONTHS, WEEKDAYS } from '../../common';
+import { IBlog, MONTHS, WEEKDAYS, domain } from '../../common';
 
 @Component({
   tag: 'blog-entry',
@@ -48,46 +48,43 @@ export class Entry {
             const entryResponse = await this.createEntry({ token: token, blog: this.blog });
             if (entryResponse.status == 200) {
               if (entryResponse.data.success) {
-                alert('Success: Blog was saved successfully!');
-              } else if (!entryResponse.data.success) alert('Error: Blog already exists with the same id!');
-              else {
-                // Generate new token using username/password
-                const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
-                if (tokenResponse.status == 200) {
-                  if (tokenResponse.data.success) {
-                    sessionStorage.token = tokenResponse.data.data;
-                    this.onSubmit(e);
-                  } else {
-                    alert(tokenResponse.data.error);
-                  }
-                }
+                alert('Blog was saved successfully!');
               }
+              // if(entryResponse.data.error == 'JsonWebTokenError' || 'TokenExpiredError' || 'NotBeforeError') {
+              //   this.generateToken({ appName: this.appName, password: this.password });
+              //   this.onSubmit(e);    
+              // }
             }
           } else {
             // Generate new token using username/password
-            const tokenResponse = await this.generateToken({ appName: this.appName, password: this.password });
-            if (tokenResponse.status == 200) {
-              if (tokenResponse.data.success) {
-                sessionStorage.token = tokenResponse.data.data;
-                this.onSubmit(e);
-              } else {
-                alert(tokenResponse.data.error);
-              }
-            }
+            const error = await this.generateToken({ appName: this.appName, password: this.password });
+            if (error) throw new Error(error)
+            this.onSubmit(e);
           }
         }
       } else {
-        alert('Data was not saved on DB.')
+        alert('Entry was canceled by the user. Entry was not save on DB.')
       }
-
     } catch (error) {
       alert(error);
     }
   }
 
-  generateToken(opts: { appName, password }) {
-    const url = `http://localhost:5000/authenticate`;
-    return axios.post(url, { appname: opts.appName, key: opts.password });
+  async generateToken(opts: { appName, password }) {
+    const url = `${domain}/authenticate`;
+    try {
+      const response = await axios.post(url, { appname: opts.appName, key: opts.password });
+      if (response.status == 200) {
+        if (response.data.success) {
+          sessionStorage.token = response.data.data;
+        } else {
+          return response.data.error;
+        }
+      }
+    } catch (error) {
+      return error;
+    }
+
   }
 
   createEntry(opts: { token: string, blog: IBlog }) {
@@ -99,7 +96,7 @@ export class Entry {
       contents: this.convertText(opts.blog.contents),
       date: this.convertText(opts.blog.date)
     };
-    const url = `http://localhost:5000/create`;
+    const url = `${domain}/create`;
     const config = {
       headers: {
         'Authorization': `Bearer ${sessionStorage.token}`

@@ -1,6 +1,7 @@
 import { Component, Prop, State } from '@stencil/core';
 import Helmet from '@stencil/helmet';
 import axios from '../../IAxios';
+import { domain } from '../../common';
 
 @Component({
   tag: 'table-of-contents',
@@ -9,13 +10,14 @@ import axios from '../../IAxios';
 export class TableOfContents {
   @Prop({ context: 'isServer' }) private isServer: boolean;
   @State() listOfArticles: any[];
-
+  private blogLoaded: boolean;
   componentWillLoad() {
     this.listOfArticles = [];
     if (this.isServer === false) {
       this.getListOfArticles()
         .then(response => {
           if (response.status == 200) {
+            this.blogLoaded = true;
             response.data.success ?
               this.listOfArticles = [...this.listOfArticles, ...response.data.data] :
               alert('There was an error retrieving the data. Please reload the page and try again!');
@@ -25,7 +27,7 @@ export class TableOfContents {
   }
 
   getListOfArticles() {
-    const url = 'http://localhost:5000/blog/list';
+    const url = `${domain}/blog/list`; console.log(url)
     return axios.get(url);
   }
 
@@ -66,6 +68,7 @@ export class TableOfContents {
         <div class='columns'>
           <div class='column col-1' />
           <div id='table-of-contents' class='column col-10'>
+            {this.blogLoaded ? <div></div> : <div class="loading loading-lg"></div>}
             <div class='columns'>
               {this.listOfArticles.map(article => (
                 <div class='column col-xs-12 col-md-6 col-4'>
