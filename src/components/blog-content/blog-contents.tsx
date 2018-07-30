@@ -110,7 +110,7 @@ export class Contents {
                                         alt += contents[j];
                                     }
                                 }
-                                if (contents[i] == 'c' && contents[i + 1] == 'a' && contents[i + 2] == 'p' && contents[i + 3] == 't' && contents[i + 4] == 'i' && contents [ i+ 5] == 'o' && contents [ i + 6] == 'n') {
+                                if (contents[i] == 'c' && contents[i + 1] == 'a' && contents[i + 2] == 'p' && contents[i + 3] == 't' && contents[i + 4] == 'i' && contents[i + 5] == 'o' && contents[i + 6] == 'n') {
                                     for (let j = i + 9; j < contents.length; j++) {
                                         if (contents[j] == '\'') {
                                             break;
@@ -120,6 +120,44 @@ export class Contents {
                                 }
                             }
                             return <blog-figure src={src} href={href} alt={alt} caption={caption}></blog-figure>;
+                        }
+                        if (contents[index + 1] == 'b' && contents[index + 2] == 'l' && contents[index + 3] == 'o' && contents[index + 4] == 'g' && contents[index + 5] == '-'
+                            && contents[index + 6] == 'c' && contents[index + 7] == 'o' && contents[index + 8] == 'd' && contents[index + 9] == 'e') {
+                            message = '';
+                            let code = '';
+                            let language = '';
+                            let caption = '';
+                            for (let i = index + 10; i < contents.length; i++) {
+                                if (contents[i] == '<' && contents[i + 1] == '/' && contents[i + 2] == 'b' && contents[i + 3] == 'l' && contents[i + 4] == 'o' && contents[i + 5] == 'g'
+                                    && contents[i + 6] == '-' && contents[i + 7] == 'c' && contents[i + 8] == 'o' && contents[i + 9] == 'd' && contents[i + 10] == 'e') {
+                                    break;
+                                }
+                                if (contents[i] == 'c' && contents[i + 1] == 'o' && contents[i + 2] == 'd' && contents[i + 3] == 'e'&& contents[i + 4] == '=') {
+                                    for (let j = i + 6; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        code += contents[j];
+                                    }
+                                }
+                                if (contents[i] == 'l' && contents[i + 1] == 'a' && contents[i + 2] == 'n' && contents[i + 3] == 'g' && contents[i + 4] == 'u' && contents[i + 5] == 'a' && contents[i + 6] == 'g' && contents[i + 7] == 'e'&& contents[i + 8] == '=') {
+                                    for (let j = i + 10; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        language += contents[j];
+                                    }
+                                }
+                                if (contents[i] == 'c' && contents[i + 1] == 'a' && contents[i + 2] == 'p' && contents[i + 3] == 't' && contents[i + 4] == 'i' && contents[i + 5] == 'o' && contents[i + 6] == 'n' && contents[i + 7] == '=') {
+                                    for (let j = i + 9; j < contents.length; j++) {
+                                        if (contents[j] == '\'') {
+                                            break;
+                                        }
+                                        caption += contents[j];
+                                    }
+                                }
+                            }
+                            return <blog-code code={code} language={language} caption={caption}></blog-code>;
                         }
                     }
                 })}

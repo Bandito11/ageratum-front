@@ -10,13 +10,15 @@ export class Code {
 
     @Prop() private code: string;
     @Prop() private language: string;
+    @Prop() private caption: string;
 
     render() {
         return (
             <div>
-                <p>Language: {this.language}</p>
+                {this.language ? <p>Language: {this.language}</p> : <div></div>}
                 <code>{this.code}</code>
+                {this.caption ? <p id='caption'>{this.caption}</p> : <div></div>}
             </div>
-            )
+        )
     }
 }

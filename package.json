@@ -8,20 +8,16 @@
   ],
   "scripts": {
     "build": "stencil build --prerender",
-    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
-    "serve": "stencil-dev-server",
-    "start": "npm run dev --prod",
-    "test": "jest --no-cache",
-    "test.watch": "jest --watch --no-cache"
+    "start": "stencil build --dev --watch --serve",
+    "test": "jest",
+    "test.watch": "jest --watch"
   },
   "dependencies": {
-    "@stencil/core": "^0.7.25",
-    "@stencil/helmet": "^0.2.5",
+    "@stencil/core": "latest",
+    "@stencil/helmet": "latest",
     "@stencil/router": "latest"
   },
   "devDependencies": {
-    "@stencil/dev-server": "latest",
-    "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1"
   },
