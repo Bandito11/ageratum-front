@@ -1,7 +1,5 @@
-exports.config = {
-};
+// https://stenciljs.com/docs/config
 
-exports.devServer = {
-  root: 'www',
-  watchGlob: '**/**'
+exports.config = {
+  globalStyle: 'src/global/app.css'
 };

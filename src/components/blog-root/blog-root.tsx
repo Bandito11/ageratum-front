@@ -1,11 +1,11 @@
 import { Component } from '@stencil/core';
 
-@Component({ 
-tag: 'my-app', 
-styleUrl: 'my-app.css' 
+@Component({
+  tag: 'blog-root',
+  styleUrl: 'blog-root.css'
 })
-export class MyApp {
 
+export class BlogRoot {
   render() {
     return (
       <div>
@@ -30,9 +30,11 @@ export class MyApp {
 
         <main>
           <stencil-router>
-            <stencil-route url='/' exact={true} component='table-of-contents'></stencil-route>
+          <stencil-route-switch scrollTopOffset={0}>
+            <stencil-route url='/' component='table-of-contents' exact={true}></stencil-route>
             <stencil-route url='/blogid/:blogid/title/:title' component='blog-page'></stencil-route>
             <stencil-route url='/entry' component='blog-entry'></stencil-route>
+            </stencil-route-switch>
           </stencil-router>
         </main>
       </div>

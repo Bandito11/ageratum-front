@@ -2,22 +2,33 @@
 <html dir="ltr" lang="en">
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112761417-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112761417-2');
+</script>
+
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
-  <title>Mi Blog</title>
-  <meta name="Description" content="Welcome to the Stencil App Starter. You can use this starter to build entire apps all with web components using Stencil!">
+  <title>BanditoTR: Web Development Tutorials</title>
+  <meta name="Description" content="BanditoTR. An oasis for Web Development Tutorials. From NodeJS to JavaScript Frameworks like Angular.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <meta name="theme-color" content="#16161d">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
   <meta http-equiv="x-ua-compatible" content="IE=Edge" />
 
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"> -->
   <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <!--Always go last!!!-->
+  <link href="/build/app.css" rel="stylesheet">
   <script src="/build/app.js"></script>
 
   <link rel="apple-touch-icon" href="/assets/icon/icon.png">
@@ -26,9 +37,7 @@
 </head>
 
 <body>
-
-  <my-app></my-app>
-
+  <blog-root></blog-root>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
-import Helmet from '@stencil/helmet';
-import axios from '../../IAxios';
+import {Helmet} from '@stencil/helmet';
+declare const axios;
 import { domain } from '../../common';
 
 interface IBlog {
@@ -74,7 +74,7 @@ export class BlogPage {
           <div class='column col-2' ></div>
           <div class='column col-8'>
             {this.blogLoaded ? <div></div> : <div  class="loading loading-lg"></div>}
-            <img src={this.convertText(this.blog.headersrc)} class='img-responsive' alt={this.convertText(this.blog.headeralt)} />
+            <img src={this.convertText(this.blog.headersrc)} class='img-responsive center' alt={this.convertText(this.blog.headeralt)} />
             <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
             <p>Written by: Esteban A. Morales</p>
             <div class='divider' />

@@ -128,6 +128,6 @@ export interface AxiosTransformer {
     spread<T, R>(callback: (...args: T[]) => R): (array: T[]) => R;
   }
   
-  declare const axios: AxiosStatic;
+  declare const IAxios: AxiosStatic;
   
-  export default axios;
+  export default IAxios;

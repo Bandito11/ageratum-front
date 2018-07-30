@@ -209,30 +209,30 @@ declare global {
 declare global {
 
   namespace StencilComponents {
-    interface MyApp {
+    interface BlogRoot {
 
     }
   }
 
-  interface HTMLMyAppElement extends StencilComponents.MyApp, HTMLStencilElement {}
+  interface HTMLBlogRootElement extends StencilComponents.BlogRoot, HTMLStencilElement {}
 
-  var HTMLMyAppElement: {
-    prototype: HTMLMyAppElement;
-    new (): HTMLMyAppElement;
+  var HTMLBlogRootElement: {
+    prototype: HTMLBlogRootElement;
+    new (): HTMLBlogRootElement;
   };
   interface HTMLElementTagNameMap {
-    'my-app': HTMLMyAppElement;
+    'blog-root': HTMLBlogRootElement;
   }
   interface ElementTagNameMap {
-    'my-app': HTMLMyAppElement;
+    'blog-root': HTMLBlogRootElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'my-app': JSXElements.MyAppAttributes;
+      'blog-root': JSXElements.BlogRootAttributes;
     }
   }
   namespace JSXElements {
-    export interface MyAppAttributes extends HTMLAttributes {
+    export interface BlogRootAttributes extends HTMLAttributes {
 
     }
   }

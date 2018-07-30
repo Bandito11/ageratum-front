@@ -1,6 +1,6 @@
 import { Component, State } from '@stencil/core';
-import Helmet from '@stencil/helmet';
-import axios from '../../IAxios';
+import {Helmet} from '@stencil/helmet';
+declare const axios;
 import { IBlog, MONTHS, WEEKDAYS, domain } from '../../common';
 
 @Component({
