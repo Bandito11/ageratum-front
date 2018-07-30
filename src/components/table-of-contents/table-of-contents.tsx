@@ -1,7 +1,8 @@
 import { Component, Prop, State } from '@stencil/core';
 import { domain } from '../../common';
+import { AxiosStatic } from '../../axios';
 import {Helmet} from '@stencil/helmet';
-declare const axios;
+declare const axios: AxiosStatic;
 
 @Component({
   tag: 'table-of-contents',

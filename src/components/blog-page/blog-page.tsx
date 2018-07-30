@@ -1,8 +1,9 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
 import {Helmet} from '@stencil/helmet';
-declare const axios;
+declare const axios: AxiosStatic;
 import { domain } from '../../common';
+import { AxiosStatic } from '../../axios';
 
 interface IBlog {
   date: string,

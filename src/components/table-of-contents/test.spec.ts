@@ -1,5 +1,5 @@
 import { TableOfContents } from './table-of-contents';
-import { TestWindow } from '@stencil/core/testing';
+import { TestWindow } from '@stencil/core/dist/testing';
 
 describe('app-profile', () => {
   it('should build', () => {

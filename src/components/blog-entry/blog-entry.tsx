@@ -1,7 +1,8 @@
 import { Component, State } from '@stencil/core';
 import {Helmet} from '@stencil/helmet';
-declare const axios;
+declare const axios: AxiosStatic;
 import { IBlog, MONTHS, WEEKDAYS, domain } from '../../common';
+import { AxiosStatic } from '../../axios';
 
 @Component({
   tag: 'blog-entry',
