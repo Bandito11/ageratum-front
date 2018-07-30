@@ -22,20 +22,20 @@ describe('app-profile', () => {
       expect(element.textContent).toEqual('');
     });
 
-  //   it('should work with a name passed', async () => {
-  //     element. = {
-  //       path: '',
-  //       url: '',
-  //       isExact: false,
-  //       params: {
-  //         name: 'stencil'
-  //       }
-  //     };
+    // it('should work with a name passed', async () => {
+    //   element.match = {
+    //     path: '',
+    //     url: '',
+    //     isExact: false,
+    //     params: {
+    //       name: 'stencil'
+    //     }
+    //   };
 
-  //     await testWindow.flush();
-  //     expect(element.textContent).toEqual(
-  //       'Hello! My name is stencil. My name was passed in through a route param!'
-  //     );
-  //   });
-  // });
+    //   await testWindow.flush();
+    //   expect(element.textContent).toEqual(
+    //     'Hello! My name is stencil. My name was passed in through a route param!'
+    //   );
+    // });
+  });
 });
