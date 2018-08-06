@@ -24,7 +24,7 @@ export class BlogPage {
   @State() blog: IBlog;
   blogLoaded: boolean;
 
-  componentWillLoad() {console.log(this.match.params)
+  componentWillLoad() {
     this.blog = {
       title: this.match.params.title,
       contents: '',

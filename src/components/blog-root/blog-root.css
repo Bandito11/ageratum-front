@@ -15,3 +15,19 @@ section a {
 #twitter{
     color:#00aced;;
 }
+#logo{
+    display: inline;
+}
+/* #logo img{
+    height: 1.8em;
+    width: 1.8em;
+} */
+footer{
+    position: fixed;
+    bottom: 0;
+    width:100%;
+}
+#logo img{
+    height: 1em;
+    width: 1em;
+}
