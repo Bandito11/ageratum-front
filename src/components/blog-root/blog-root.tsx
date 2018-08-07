@@ -41,12 +41,12 @@ export class BlogRoot {
             </stencil-route-switch>
           </stencil-router>
         </main>
-        {/* <footer>
+        <footer>
           <div id='logo'>
             <a target="_blank" href='https://attendancelog.xyz'>
-            <img src='assets/hi-res-icon.png' alt='Attendance Log icon' />Attendance Log</a>
+            <img src='assets/hi-res-icon.png' alt='Attendance Log icon' /></a>
           </div>
-        </footer> */}
+        </footer>
       </div>
     );
   }
