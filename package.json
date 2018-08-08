@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "stencil build --prerender",
-    "start": "stencil build --dev --watch --serve",
+    "start": "gulp && stencil build --prod --watch --serve",
     "test": "jest",
     "test.watch": "jest --watch"
   },
