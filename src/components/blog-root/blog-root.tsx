@@ -26,7 +26,7 @@ export class BlogRoot {
             <a id='linkedin' href="https://www.linkedin.com/in/esteban-morales-5854b67a/" target="_blank">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
-            <a id='twitter' href="https://twitter.com/Esteban_PR_11" target="_blank">
+            <a id='twitter' href="https://twitter.com/banditotr" target="_blank">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </section>
