@@ -32,7 +32,6 @@ export interface IResponse<T> {
     dateStamp: Date;
 }
 
-let domain;
 function getListOfArticles() {
     const url = `${domain}/blog/list`;
     return axios.get(url);
