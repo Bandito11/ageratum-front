@@ -16,10 +16,10 @@ export class BlogRoot {
             </section>
           </stencil-route-link>
           <section class="navbar-section">
-            <div id='logo'>
+            {/* <div id='logo'>
               <a target="_blank" href='https://attendancelog.xyz'>
                 <img src='assets/hi-res-icon.png' alt='Attendance Log icon' /></a>
-            </div>
+            </div> */}
             <a id='github' href="https://github.com/Bandito11" target="_blank">
               <ion-icon name="logo-github"></ion-icon>
             </a>
@@ -42,9 +42,9 @@ export class BlogRoot {
           </stencil-router>
         </main>
         <footer>
-          <div id='logo'>
+          <div id="footer-logos">
             <a target="_blank" href='https://attendancelog.xyz'>
-            <img src='assets/hi-res-icon.png' alt='Attendance Log icon' /></a>
+            <img id='logo' src='assets/hi-res-icon.png' alt='Attendance Log icon' /></a>
           </div>
         </footer>
       </div>

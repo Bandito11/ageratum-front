@@ -3,9 +3,6 @@
   "private": true,
   "version": "0.10.10",
   "description": "My personal blog",
-  "files": [
-    "dist/"
-  ],
   "scripts": {
     "build": "stencil build --prerender",
     "start": "stencil build --prod --watch --serve",
@@ -13,7 +10,7 @@
     "test.watch": "jest --watch"
   },
   "dependencies": {
-    "@stencil/core": "0.12.4",
+    "@stencil/core": "0.10.10",
     "@stencil/helmet": "^0.2.5",
     "@stencil/router": "^0.2.5"
   },
@@ -26,8 +23,6 @@
     "type": "git",
     "url": "git+https://github.com/Bandito11/banditotr-front.git"
   },
-  "author": "Ionic Team",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Bandito11/banditotr-front"
   },

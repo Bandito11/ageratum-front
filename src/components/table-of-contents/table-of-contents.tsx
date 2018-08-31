@@ -88,7 +88,7 @@ export class TableOfContents {
                           {this.convertText(article.date)}
                         </div>
                       </div>
-                      <div class='card-body'><blog-contents contents={this.convertText(article.contents)} /></div>
+                      {/* <div class='card-body'><blog-contents contents={this.convertText(article.contents)} /></div> */}
                     </div>
                     <br />
                   </stencil-route-link>

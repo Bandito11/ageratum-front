@@ -15,20 +15,23 @@ section a {
 #twitter{
     color:#00aced;;
 }
-#logo{
+#footer-logos{
     display: inline;
 }
-/* #logo img{
-    height: 1.8em;
-    width: 1.8em;
-} */
 footer{
     position: fixed;
     bottom: 0;
     width:100%;
     background-color: #000;
 }
-#logo img{
-    height: 1em;
-    width: 1em;
+#logo {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+@media screen and (min-width: 600px) {
+    #logo {
+        height: 2.5em;
+        width: 2.5em;
+    }
 }
