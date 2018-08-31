@@ -8,12 +8,12 @@
   ],
   "scripts": {
     "build": "stencil build --prerender",
-    "start": "gulp && stencil build --prod --watch --serve",
+    "start": "stencil build --prod --watch --serve",
     "test": "jest",
     "test.watch": "jest --watch"
   },
   "dependencies": {
-    "@stencil/core": "0.10.10",
+    "@stencil/core": "0.12.4",
     "@stencil/helmet": "^0.2.5",
     "@stencil/router": "^0.2.5"
   },
