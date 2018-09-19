@@ -4,7 +4,7 @@
   "version": "0.10.10",
   "description": "My personal blog",
   "scripts": {
-    "build": "stencil build --prerender",
+    "build": "stencil build --prerender --prod",
     "start": "stencil build --prod --watch --serve",
     "test": "jest",
     "test.watch": "jest --watch"
