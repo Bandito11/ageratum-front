@@ -12,7 +12,8 @@
   "dependencies": {
     "@stencil/core": "0.10.10",
     "@stencil/helmet": "^0.2.5",
-    "@stencil/router": "^0.2.5"
+    "@stencil/router": "^0.2.5",
+    "disqus-react": "^1.0.5"
   },
   "devDependencies": {
     "@types/jest": "23.3.1",

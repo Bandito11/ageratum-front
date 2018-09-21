@@ -1,6 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
 import { MatchResults } from '@stencil/router';
-import {Helmet} from '@stencil/helmet';
+import { Helmet } from '@stencil/helmet';
 declare const axios: AxiosStatic;
 import { domain } from '../../common';
 import { AxiosStatic } from '../../axios';
@@ -65,7 +65,19 @@ export class BlogPage {
     return axios.get(url);
   }
 
+  disqus() {
+    return {
+      shortname: 'https://banditotr.disqus.com',
+      config: {
+        url: `https://www.banditotr.com`,
+        identifier: `/blogid/${this.match.params.blogid}/title/${this.match.params.title}`,
+        title: this.match.params.title
+      }
+    }
+  }
+
   render() {
+    const disqus = this.disqus();
     return (
       <div>
         <Helmet>
@@ -74,7 +86,7 @@ export class BlogPage {
         <div class='columns'>
           <div class='column col-2' ></div>
           <div class='column col-8'>
-            {this.blogLoaded ? <div></div> : <div  class="loading loading-lg"></div>}
+            {this.blogLoaded ? <div></div> : <div class="loading loading-lg"></div>}
             <img src={this.convertText(this.blog.headersrc)} class='img-responsive center' alt={this.convertText(this.blog.headeralt)} />
             <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
             <p>Written by: Esteban A. Morales</p>
@@ -84,7 +96,16 @@ export class BlogPage {
           </div>
           <div class='column col-2' />
         </div>
+        <div id='disqus-commentary'>
+          <h1>{disqus.config.title}</h1>
+          <disqus-comment-count shortname={disqus.shortname} config={disqus.config}>
+            Comments
+          </disqus-comment-count>
+          <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />         <p></p>
+        </div>
       </div>
     );
   }
+
+
 }

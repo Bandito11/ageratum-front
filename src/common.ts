@@ -1,5 +1,5 @@
-// export const domain = 'http://localhost:5000'; //for dev
-export const domain = '';
+export const domain = 'http://localhost:5000'; //for dev
+// export const domain = '';
 //  export const domain = 'http://banditotr.com'; //to test if CORS === *
 
 export interface IBlog {

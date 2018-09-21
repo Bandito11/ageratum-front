@@ -243,6 +243,121 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface DisqusCommentCount {
+      'children': any;
+      'config': any;
+      'shortname': any;
+    }
+  }
+
+  interface HTMLDisqusCommentCountElement extends StencilComponents.DisqusCommentCount, HTMLStencilElement {}
+
+  var HTMLDisqusCommentCountElement: {
+    prototype: HTMLDisqusCommentCountElement;
+    new (): HTMLDisqusCommentCountElement;
+  };
+  interface HTMLElementTagNameMap {
+    'disqus-comment-count': HTMLDisqusCommentCountElement;
+  }
+  interface ElementTagNameMap {
+    'disqus-comment-count': HTMLDisqusCommentCountElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'disqus-comment-count': JSXElements.DisqusCommentCountAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DisqusCommentCountAttributes extends HTMLAttributes {
+      'children'?: any;
+      'config'?: any;
+      'shortname'?: any;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface DisqusCommentEmbed {
+      'commentId': any;
+      'height': any;
+      'showMedia': any;
+      'showParentComment': any;
+      'width': any;
+    }
+  }
+
+  interface HTMLDisqusCommentEmbedElement extends StencilComponents.DisqusCommentEmbed, HTMLStencilElement {}
+
+  var HTMLDisqusCommentEmbedElement: {
+    prototype: HTMLDisqusCommentEmbedElement;
+    new (): HTMLDisqusCommentEmbedElement;
+  };
+  interface HTMLElementTagNameMap {
+    'disqus-comment-embed': HTMLDisqusCommentEmbedElement;
+  }
+  interface ElementTagNameMap {
+    'disqus-comment-embed': HTMLDisqusCommentEmbedElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'disqus-comment-embed': JSXElements.DisqusCommentEmbedAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DisqusCommentEmbedAttributes extends HTMLAttributes {
+      'commentId'?: any;
+      'height'?: any;
+      'showMedia'?: any;
+      'showParentComment'?: any;
+      'width'?: any;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface DisqusDiscussionEmbed {
+      'config': any;
+      'disqus_shortname': any;
+      'shortname': any;
+    }
+  }
+
+  interface HTMLDisqusDiscussionEmbedElement extends StencilComponents.DisqusDiscussionEmbed, HTMLStencilElement {}
+
+  var HTMLDisqusDiscussionEmbedElement: {
+    prototype: HTMLDisqusDiscussionEmbedElement;
+    new (): HTMLDisqusDiscussionEmbedElement;
+  };
+  interface HTMLElementTagNameMap {
+    'disqus-discussion-embed': HTMLDisqusDiscussionEmbedElement;
+  }
+  interface ElementTagNameMap {
+    'disqus-discussion-embed': HTMLDisqusDiscussionEmbedElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'disqus-discussion-embed': JSXElements.DisqusDiscussionEmbedAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DisqusDiscussionEmbedAttributes extends HTMLAttributes {
+      'config'?: any;
+      'disqus_shortname'?: any;
+      'shortname'?: any;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface TableOfContents {
 
     }
