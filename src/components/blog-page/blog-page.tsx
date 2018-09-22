@@ -67,9 +67,9 @@ export class BlogPage {
 
   disqus() {
     return {
-      shortname: 'https://banditotr.disqus.com',
+      shortname: 'banditotr',
       config: {
-        url: `https://www.banditotr.com`,
+        url: `http://www.banditotr.com`,
         identifier: `/blogid/${this.match.params.blogid}/title/${this.match.params.title}`,
         title: this.match.params.title
       }
@@ -97,11 +97,11 @@ export class BlogPage {
           <div class='column col-2' />
         </div>
         <div id='disqus-commentary'>
-          <h1>{disqus.config.title}</h1>
+          {/* <h1>{disqus.config.title}</h1> */}
           <disqus-comment-count shortname={disqus.shortname} config={disqus.config}>
             Comments
           </disqus-comment-count>
-          <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />         <p></p>
+          <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />
         </div>
       </div>
     );

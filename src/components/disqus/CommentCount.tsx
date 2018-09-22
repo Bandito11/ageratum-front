@@ -15,7 +15,6 @@ export class CommentCount {
 
     @Prop() shortname: any;
     @Prop() config: any;
-    @Prop() children;
     nextShortName: any;
 
     componentDidLoad() {
@@ -70,7 +69,7 @@ export class CommentCount {
                 data-disqus-identifier={this.config.identifier}
                 data-disqus-url={this.config.url}
             >
-                {this.children}
+                <slot />
             </span>
         );
     }
