@@ -93,15 +93,15 @@ export class BlogPage {
             <div class='divider' />
             <blog-contents contents={this.convertText(this.blog.contents)} />
             <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
+            <div id='disqus-commentary'>
+              {/* <h1>{disqus.config.title}</h1> */}
+              <disqus-comment-count shortname={disqus.shortname} config={disqus.config}>
+                <p>Comments</p>
+          </disqus-comment-count>
+              <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />
+            </div>
           </div>
           <div class='column col-2' />
-        </div>
-        <div id='disqus-commentary'>
-          {/* <h1>{disqus.config.title}</h1> */}
-          <disqus-comment-count shortname={disqus.shortname} config={disqus.config}>
-            Comments
-          </disqus-comment-count>
-          <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />
         </div>
       </div>
     );
