@@ -82,6 +82,28 @@ export class BlogPage {
       <div>
         <Helmet>
           <title>{this.blog.title}</title>
+          {/* <!-- HTML Meta Tags --> */}
+          <meta name="description" content={this.blog.contents}/>
+
+          {/* <!-- Google / Search Engine Tags --> */}
+          <meta itemprop="name" content={`BanditoTR: ${this.blog.title}`}/>
+          <meta itemprop="description" content={this.blog.contents}/>
+          <meta itemprop="image" content="https://www.banditotr.com/assets/icon/icon.png"/>
+
+          {/* <!-- Facebook Meta Tags --> */}
+          <meta property="og:url" content="https://www.banditotr.com"/>
+          <meta property="og:type" content="website"/>
+          <meta property="og:title" content={`BanditoTR: ${this.blog.title}`}/>
+          <meta property="og:description" content={this.blog.contents}/>
+          <meta property="og:image" content="https://www.banditotr.com/assets/icon/icon.png"/>
+
+          {/* <!-- Twitter Meta Tags --> */}
+          <meta name="twitter:card" content="summary_large_image"/>
+          <meta name="twitter:title" content={`BanditoTR: ${this.blog.title}`}/>
+          <meta name="twitter:description" content={this.blog.contents}/>
+          <meta name="twitter:image" content="https://www.banditotr.com/assets/icon/icon.png"/>
+
+          {/* <!-- Meta Tags Generated via http://heymeta.com --> */}
         </Helmet>
         <div class='columns'>
           <div class='column col-2' ></div>
