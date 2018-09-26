@@ -65,19 +65,15 @@ export class BlogPage {
     return axios.get(url);
   }
 
-  disqus() {
-    return {
+  render() {
+    const disqus = {
       shortname: 'banditotr',
       config: {
         url: `http://www.banditotr.com`,
-        identifier: `/blogid/${this.match.params.blogid}/title/${this.match.params.title}`,
+        identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`,
         title: this.match.params.title
-      }
-    }
-  }
-
-  render() {
-    const disqus = this.disqus();
+      };
+      
     return (
       <div>
         <Helmet>
@@ -91,7 +87,7 @@ export class BlogPage {
           <meta itemprop="image" content="https://www.banditotr.com/assets/icon/icon.png"/>
 
           {/* <!-- Facebook Meta Tags --> */}
-          <meta property="og:url" content="https://www.banditotr.com"/>
+          <meta property="og:url" content={`https://www.banditotr.com/blogid/${this.match.params.blogid}/title/${this.blog.title}`}/>
           <meta property="og:type" content="website"/>
           <meta property="og:title" content={`BanditoTR: ${this.blog.title}`}/>
           <meta property="og:description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
