@@ -65,65 +65,68 @@ export class BlogPage {
     return axios.get(url);
   }
 
-  render() {
-    const disqus = {
+  disqus() {
+    return {
       shortname: 'banditotr',
       config: {
         url: `http://www.banditotr.com`,
         identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`,
         title: this.match.params.title
-      };
-      
-    return (
-      <div>
-        <Helmet>
-          <title>{this.blog.title}</title>
-          {/* <!-- HTML Meta Tags --> */}
-          <meta name="description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
-
-          {/* <!-- Google / Search Engine Tags --> */}
-          <meta itemprop="name" content={`BanditoTR: ${this.blog.title}`}/>
-          <meta itemprop="description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
-          <meta itemprop="image" content="https://www.banditotr.com/assets/icon/icon.png"/>
-
-          {/* <!-- Facebook Meta Tags --> */}
-          <meta property="og:url" content={`https://www.banditotr.com/blogid/${this.match.params.blogid}/title/${this.blog.title}`}/>
-          <meta property="og:type" content="website"/>
-          <meta property="og:title" content={`BanditoTR: ${this.blog.title}`}/>
-          <meta property="og:description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
-          <meta property="og:image" content="https://www.banditotr.com/assets/icon/icon.png"/>
-
-          {/* <!-- Twitter Meta Tags --> */}
-          <meta name="twitter:card" content="summary_large_image"/>
-          <meta name="twitter:title" content={`BanditoTR: ${this.blog.title}`}/>
-          <meta name="twitter:description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
-          <meta name="twitter:image" content="https://www.banditotr.com/assets/icon/icon.png"/>
-
-          {/* <!-- Meta Tags Generated via http://heymeta.com --> */}
-        </Helmet>
-        <div class='columns'>
-          <div class='column col-2' ></div>
-          <div class='column col-8'>
-            {this.blogLoaded ? <div></div> : <div class="loading loading-lg"></div>}
-            <img src={this.convertText(this.blog.headersrc)} class='img-responsive center' alt={this.convertText(this.blog.headeralt)} />
-            <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
-            <p>Written by: Esteban A. Morales</p>
-            <div class='divider' />
-            <blog-contents contents={this.convertText(this.blog.contents)} />
-            <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
-            <div id='disqus-commentary'>
-              {/* <h1>{disqus.config.title}</h1> */}
-              <disqus-comment-count shortname={disqus.shortname} config={disqus.config}>
-                <p>Comments</p>
-          </disqus-comment-count>
-              <disqus-discussion-embed shortname={disqus.shortname} config={disqus.config} />
-            </div>
-          </div>
-          <div class='column col-2' />
-        </div>
-      </div>
-    );
+      }
+    }
   }
 
+    render() {
+      return (
+        <div>
+          <Helmet>
+            <title>{this.blog.title}</title>
+            {/* <!-- HTML Meta Tags --> */}
+            <meta name="description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
 
-}
+            {/* <!-- Google / Search Engine Tags --> */}
+            <meta itemprop="name" content={`BanditoTR: ${this.blog.title}`} />
+            <meta itemprop="description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
+            <meta itemprop="image" content="https://www.banditotr.com/assets/icon/icon.png" />
+
+            {/* <!-- Facebook Meta Tags --> */}
+            <meta property="og:url" content={`https://www.banditotr.com/blogid/${this.match.params.blogid}/title/${this.blog.title}`} />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content={`BanditoTR: ${this.blog.title}`} />
+            <meta property="og:description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
+            <meta property="og:image" content="https://www.banditotr.com/assets/icon/icon.png" />
+
+            {/* <!-- Twitter Meta Tags --> */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={`BanditoTR: ${this.blog.title}`} />
+            <meta name="twitter:description" content="Tutorials about TypeScript, HTML5, frameworks like Angular and Ionic and web tools like StencilJS." />
+            <meta name="twitter:image" content="https://www.banditotr.com/assets/icon/icon.png" />
+
+            {/* <!-- Meta Tags Generated via http://heymeta.com --> */}
+          </Helmet>
+          <div class='columns'>
+            <div class='column col-2' ></div>
+            <div class='column col-8'>
+              {this.blogLoaded ? <div></div> : <div class="loading loading-lg"></div>}
+              <img src={this.convertText(this.blog.headersrc)} class='img-responsive center' alt={this.convertText(this.blog.headeralt)} />
+              <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
+              <p>Written by: Esteban A. Morales</p>
+              <div class='divider' />
+              <blog-contents contents={this.convertText(this.blog.contents)} />
+              <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
+              <div id='disqus-commentary'>
+                {/* <h1>{disqus.config.title}</h1> */}
+                <disqus-comment-count shortname={this.disqus().shortname} config={this.disqus().config}>
+                  <p>Comments</p>
+                </disqus-comment-count>
+                <disqus-discussion-embed shortname={this.disqus().shortname} config={this.disqus().config} />
+              </div>
+            </div>
+            <div class='column col-2' />
+          </div>
+        </div>
+      );
+    }
+
+
+  }
