@@ -105,8 +105,8 @@ export class BlogPage {
             {/* <!-- Meta Tags Generated via http://heymeta.com --> */}
           </Helmet>
           <div class='columns'>
-            <div class='column col-2' ></div>
-            <div class='column col-8'>
+            <div class='column col-2 col-sm-1' ></div>
+            <div class='column col-8 col-sm-10'>
               {this.blogLoaded ? <div></div> : <div class="loading loading-lg"></div>}
               <img src={this.convertText(this.blog.headersrc)} class='img-responsive center' alt={this.convertText(this.blog.headeralt)} />
               <h2 id='titleBlog'>{this.convertText(this.blog.title)}</h2>
@@ -122,7 +122,7 @@ export class BlogPage {
                 <disqus-discussion-embed shortname={this.disqus().shortname} config={this.disqus().config} />
               </div>
             </div>
-            <div class='column col-2' />
+            <div class='column col-2 col-sm-1' />
           </div>
         </div>
       );
