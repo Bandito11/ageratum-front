@@ -69,9 +69,8 @@ export class BlogPage {
     return {
       shortname: 'banditotr',
       config: {
-        url: `http://www.banditotr.com`,
-        identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`,
-        title: this.match.params.title
+        url: `https://www.banditotr.com`,
+        identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`
       }
     }
   }
@@ -115,10 +114,6 @@ export class BlogPage {
               <blog-contents contents={this.convertText(this.blog.contents)} />
               <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
               <div id='disqus-commentary'>
-                {/* <h1>{disqus.config.title}</h1> */}
-                <disqus-comment-count shortname={this.disqus().shortname} config={this.disqus().config}>
-                  <p>Comments</p>
-                </disqus-comment-count>
                 <disqus-discussion-embed shortname={this.disqus().shortname} config={this.disqus().config} />
               </div>
             </div>

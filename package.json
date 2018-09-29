@@ -5,7 +5,7 @@
   "description": "My personal blog",
   "scripts": {
     "build": "stencil build --prerender --prod",
-    "start": "stencil build --prod --watch --serve",
+    "start": "stencil build --watch --serve --prod",
     "test": "jest",
     "test.watch": "jest --watch"
   },

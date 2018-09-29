@@ -1,7 +1,7 @@
 import { Component, Prop, State } from '@stencil/core';
 import { domain } from '../../common';
 import { AxiosStatic } from '../../axios';
-import {Helmet} from '@stencil/helmet';
+import { Helmet } from '@stencil/helmet';
 declare const axios: AxiosStatic;
 
 @Component({
@@ -106,6 +106,9 @@ export class TableOfContents {
                       </div>
                       <div class='card-header'>
                         <div class='card-title h3'>{this.convertText(article.title)}</div>
+                        <disqus-comment-count shortname='banditotr' config={{ url: 'https://www.banditotr.com', identifier: `/blogid/${article.blogid}/title/${this.convertTitle(article.title)}` }}>
+                          <p>Comments</p>
+                        </disqus-comment-count>
                         <div class='card-subtitle text-gray'>
                           {this.convertText(article.date)}
                         </div>
