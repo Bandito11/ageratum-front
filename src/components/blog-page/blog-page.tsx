@@ -44,6 +44,7 @@ export class BlogPage {
               alert('There was an error retrieving the data. Please reload the page and try again!');
           }
         });
+        this.disqus();
     }
   }
 
@@ -65,17 +66,47 @@ export class BlogPage {
     return axios.get(url);
   }
 
-  disqus() {
-    return {
-      shortname: 'banditotr',
-      config: {
-        url: `https://www.banditotr.com`,
-        identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`
-      }
-    }
+  getDisqus() {
+    const url = `${domain}/blog/disqus-auth/blogid/${this.match.params.blogid}/title/${this.blog.title}`;
+    return axios.get(url)
   }
 
-    render() {
+  shortname;
+  config = {
+    shortname: '',
+    config: {
+      identifier: '',
+      url: ''
+    }
+  };
+  disqus() {
+    // let response = {
+    //   shortname: '',
+    //   config: {
+    //     identifier: '',
+    //     url: ''
+    //   }
+    // }
+      this.getDisqus()
+        .then(response => {
+          if (response.status = 200) {
+            this.shortname = response.data.shortname;
+            this.config = {
+              ...this.config,
+              ...response.data.config
+            }
+          }
+        })
+      // return { f
+      //   shortname: 'banditotr',
+      //   config: {
+      //     url: `https://www.banditotr.com`,
+      //     identifier: `/blogid/${this.match.params.blogid}/title/${this.blog.title}`
+      //   }
+      // }
+    }
+
+  render() {
       return (
         <div>
           <Helmet>
@@ -114,7 +145,7 @@ export class BlogPage {
               <blog-contents contents={this.convertText(this.blog.contents)} />
               <p id='dateBlog'>Originally published on {this.convertText(this.blog.date)}.</p>
               <div id='disqus-commentary'>
-                <disqus-discussion-embed shortname={this.disqus().shortname} config={this.disqus().config} />
+                <disqus-discussion-embed shortname={this.shortname} config={this.config} />
               </div>
             </div>
             <div class='column col-2 col-sm-1' />
@@ -122,6 +153,4 @@ export class BlogPage {
         </div>
       );
     }
-
-
   }
